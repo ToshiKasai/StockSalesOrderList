@@ -77,7 +77,8 @@ namespace StockSalesOrderList.Models
             this.Status = status;
             try
             {
-                this.Message = HttpContext.GetGlobalResourceObject("AuthResources", "LogMessage" + status.ToString().Replace('-', '_')) as string;
+                // this.Message = HttpContext.GetGlobalResourceObject("AuthResources", "LogMessage" + status.ToString().Replace('-', '_')) as string;
+                this.Message = App_GlobalResources.AuthResources.ResourceManager.GetString("LogMessage" + status.ToString().Replace('-', '_'));
             }
             catch (Exception)
             {
