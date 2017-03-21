@@ -1,0 +1,29 @@
+﻿@{
+    ViewBag.Title = "エラー発生";
+}
+
+@section stylesheet{
+    @Styles.Render("~/Content/base")
+}
+@section script{
+    @Scripts.Render("~/Scripts/base")
+}
+
+<div class="container">
+    <ol class="breadcrumb">
+        <li>
+            <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+            @Html.ActionLink("Home", "Index", "Home")
+        </li>
+        <li class="active">
+            @ViewBag.Title
+        </li>
+    </ol>
+</div>
+
+<h4>
+    システム内部で処理エラーが発生しました。
+</h4>
+<div class="row">
+    ご迷惑をおかけしますが、再度メニューより作業をやり直してください。
+</div>

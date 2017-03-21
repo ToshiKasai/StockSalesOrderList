@@ -1,0 +1,47 @@
+﻿<div class="container">
+    <ol class="breadcrumb">
+        <li>
+            <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+            @Html.ActionLink("MENU", "Menu", "Home", null, htmlAttributes: new { @target = "_self" })
+        </li>
+        <li>
+            <a ng-click="$ctrl.goMenu();">@Html.Resource("Messages, ManagedMenuButton00")</a>
+        </li>
+        <li>
+            <a ng-click="$ctrl.goList();">@Html.Resource("Messages, ManagedMenuButton01")</a>
+        </li>
+        <li>
+            @Html.Resource("Messages, ManagedUserRole") - <span class="route-animate" ng-animate-ref="username-{{$ctrl.userEdit.id}}">{{$ctrl.userEdit.userName}}</span>
+        </li>
+    </ol>
+</div>
+
+<form name="userEdit" novalidate ng-submit="$ctrl.submit()">
+    <div class="alert alert-info">権限の反映は即時に行われない場合があります。<br />即時反映させたい場合は、サインインをしなおしてください。</div>
+
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h3 class="panel-title">編集対象ユーザー</h3>
+        </div>
+        <div class="panel-body">
+            <span class="route-animate" ng-animate-ref="name-{{$ctrl.userEdit.id}}">{{$ctrl.userEdit.name}}</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12"></div>
+    </div>
+    <div class="row">
+        <div class="form-group">
+            <ui-select ng-model="$ctrl.selectRole" multiple>
+                <ui-select-match placeholder="権限を選択" allow-clear="true">
+                    {{$item.displayName}}
+                </ui-select-match>
+                <ui-select-choices repeat="r in $ctrl.roleList | filter: $select.search">
+                    {{r.displayName}}
+                </ui-select-choices>
+            </ui-select>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-raised btn-success">更新</button>
+    <a class="btn btn-raised btn-default" ng-click="$ctrl.goList()">キャンセル</a>
+</form>

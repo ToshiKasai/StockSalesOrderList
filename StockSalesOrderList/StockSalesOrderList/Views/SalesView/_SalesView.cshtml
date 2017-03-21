@@ -1,0 +1,245 @@
+﻿<div class="container">
+    <ol class="breadcrumb">
+        <li>
+            <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+            @Html.ActionLink("MENU", "Menu", "Home", null, htmlAttributes: new { @target = "_self" })
+        </li>
+        <li>
+            <a ng-click="$ctrl.goMaker();">@Html.Resource("Messages, SalesViewScreen01")</a>
+        </li>
+        <li>
+            <a ng-click="$ctrl.goGroup();">@Html.Resource("Messages, SalesViewScreen02")</a>
+        </li>
+        <li class="active">
+            @Html.Resource("Messages, SalesViewScreen03")
+        </li>
+    </ol>
+</div>
+
+<div id="sideOverlay" class="overlay" ng-click="$ctrl.closeSidemenu()"></div>
+<div id="sideMenu" class="sideMenu" ng-click="$ctrl.toggleSidemenu()">
+    <a ng-repeat="p in $ctrl.salesList" ng-click="$ctrl.scrollTo(p.product.id)">
+        {{p.product.code}} : {{p.product.name}}
+    </a>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="panel">
+            <div class="panel-heading">年度</div>
+            <div class="panel-body form-group panel-select-only">
+                <select ng-model="$ctrl.session.year" ng-options="value as (value) + '年' for value in $ctrl.yearList"
+                        class="form-control" ng-change="$ctrl.selectYears()"></select>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="panel mouse-link" ng-click="$ctrl.goMaker()">
+            <div class="panel-heading">選択メーカー</div>
+            <div class="panel-body">
+                {{$ctrl.session.makerCode}}
+                {{$ctrl.session.makerName}}
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="panel mouse-link" ng-click="$ctrl.goGroup()">
+            <div class="panel-heading">選択グループ</div>
+            <div class="panel-body">
+                <span ng-animate-ref="gcode-{{$ctrl.session.groupId}}" class="route-animate">{{$ctrl.session.groupCode}}</span>
+                <span class="route-animate" ng-animate-ref="gname-{{$ctrl.session.groupId}}">{{$ctrl.session.groupName}}</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<a class="btn btn-raised btn-primary" href="{{$ctrl.dowloadLink}}">データダウンロード(発注＆予算アップロード用)</a>
+<a class="btn btn-raised btn-primary" href="{{$ctrl.dowloadTabLink}}">データダウンロード(ダウンロード専用商品別タブ形式)</a>
+
+<div>
+    <ul class="pagination" ng-if="$ctrl.productPage.pages>1">
+        <li ng-if="$ctrl.productPage.page>=1"><a href="javascript:void(0)" ng-click="$ctrl.jumpPage(-10)">«</a></li>
+        <li ng-if="$ctrl.productPage.page<1" class="disabled"><a href="javascript:void(0)">«</a></li>
+        <li ng-repeat="i in $ctrl.displayPage()" ng-class="$ctrl.productPage.page===i?'active':''">
+            <a href="javascript:void(0)" ng-click="$ctrl.changePage(i)">{{i+1}}</a>
+        </li>
+        <li ng-if="$ctrl.productPage.page<($ctrl.productPage.pages-1)"><a href="javascript:void(0)" ng-click="$ctrl.jumpPage(10)">»</a></li>
+        <li ng-if="$ctrl.productPage.page>=($ctrl.productPage.pages-1)" class="disabled"><a href="javascript:void(0)">»</a></li>
+    </ul>
+</div>
+
+<div class="panel panel-primary" ng-repeat="sl in $ctrl.salesList">
+    <div class="panel-heading">
+        <article id="article-{{sl.product.id}}">
+            {{sl.product.code}} : {{sl.product.name}}
+        </article>
+        （
+        {{sl.product.isSoldWeight | boolean : "計量品" : "ピース品"}}
+        ケース：{{sl.product.quantity}}
+        パレット：{{sl.product.paletteQuantity | nullfilter : "未登録"}}
+        リードタイム：{{sl.product.leadTime | nullfilter : "未登録"}}
+        ）
+    </div>
+    <div class="panel-body">
+        <button class="btn btn-default btn-raised" ng-click="$ctrl.saveData(sl.product.id)">保存＆再計算</button>
+        <button class="btn btn-default btn-raised" ng-click="$ctrl.goDetail(sl.product.id)">詳細表示</button>
+        @*<button class="btn btn-default btn-raised" ng-click="$ctrl.recalc(sl)">再計算</button>*@
+    </div>
+    @{
+        var loop_start = 1;
+        var loop_end = 13;
+    }
+    <table class="table">
+        <thead>
+            <tr>
+                <th class="title-sm">&nbsp;</th>
+                <th class="title-mid">&nbsp;</th>
+                @for (var i = 0; i < 12; i++)
+                {
+                    <th class="numbers">@((i + 9) % 12 + 1)月</th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th rowspan="2" class="title-sm">月初<br />在庫</th>
+                <th class="title-mid">予測</th>
+
+                @for (var i = loop_start; i < loop_end; i++)
+                {
+                    <td class="numbers" ng-class="sl.zaikoPlan[@i]<0 ? 'danger':''">
+                        {{sl.zaikoPlan[@i] | number: $ctrl.getFixed(sl)}}
+                    </td>
+                }
+            </tr>
+            <tr>
+                <th class="title-mid">実績</th>
+                @for (var i = loop_start; i < loop_end; i++)
+                {
+                    <td class="numbers">{{sl.salesList[@i].zaiko_actual | number: $ctrl.getFixed(sl)}}</td>
+                }
+            </tr>
+            <!-- 発注 -->
+            <tr>
+                <th rowspan="2" class="title-sm">発注</th>
+                <th class="title-mid">予定</th>
+                @for (var i = loop_start; i < loop_end; i++)
+                {
+                    <td class="numbers form-group" edit-tag-number ng-model="sl.salesList[@i].order_plan"
+                        callback="$ctrl.inputOrder(@i, sl);"></td>
+                }
+            </tr>
+            <tr>
+                <th class="title-mid">実績</th>
+                @for (var i = loop_start; i < loop_end; i++)
+                {
+                    <td class="numbers">{{sl.salesList[@i].order_actual | number: $ctrl.getFixed(sl)}}</td>
+                }
+            </tr>
+            <!-- 入荷 -->
+            <tr>
+                <th rowspan="3" class="title-sm" ng-if="!sl.invoiceShow">入荷</th>
+                <th rowspan="5" class="title-sm" ng-if="sl.invoiceShow">入荷</th>
+                <th class="title-mid">予定</th>
+                @for (var i = loop_start; i < loop_end; i++)
+                {
+                    <td class="numbers form-group" edit-tag-number ng-if="sl.product.isSoldWeight" ng-model="sl.salesList[@i].invoice_plan" min="0" step="0.001" fixed="3"></td>
+                    <td class="numbers form-group" edit-tag-number ng-if="!sl.product.isSoldWeight" ng-model="sl.salesList[@i].invoice_plan" min="0" step="1" fixed="0"></td>
+                }
+            </tr>
+            <tr>
+                <th class="title-mid">実績</th>
+                @for (var i = loop_start; i < loop_end; i++)
+                {
+                    <td class="numbers">{{sl.salesList[@i].invoice_actual | number: $ctrl.getFixed(sl)}}</td>
+                }
+            </tr>
+            <tr>
+                <th class="title-mid mouse-link" ng-click="$ctrl.toggleInvoice(sl)">
+                    残数
+                    <span ng-if="sl.invoiceShow">
+                        <i class="material-icons md-18">&#xE5CE;</i>
+                    </span>
+                    <span ng-if="!sl.invoiceShow">
+                        <i class="material-icons md-18">&#xE5CF;</i>
+                    </span>
+                </th>
+                @for (var i = loop_start; i < loop_end; i++)
+                {
+                    <td class="numbers">{{sl.salesList[@i].invoice_zan - sl.salesList[@i].invoice_adjust | number: $ctrl.getFixed(sl)}}</td>
+                }
+            </tr>
+            <tr ng-if="sl.invoiceShow">
+                <th class="title-mid info">残数</th>
+                @for (var i = loop_start; i < loop_end; i++)
+                {
+                    <td class="numbers info">{{sl.salesList[@i].invoice_zan | number: $ctrl.getFixed(sl)}}</td>
+                }
+            </tr>
+            <tr ng-if="sl.invoiceShow">
+                <th class="title-mid info">調整</th>
+                @for (var i = loop_start; i < loop_end; i++)
+                {
+                    <td class="numbers info form-group" edit-tag-number ng-if="sl.product.isSoldWeight" ng-model="sl.salesList[@i].invoice_adjust" min="0" step="0.001" fixed="3"></td>
+                    <td class="numbers info form-group" edit-tag-number ng-if="!sl.product.isSoldWeight" ng-model="sl.salesList[@i].invoice_adjust" min="0" step="1" fixed="0"></td>
+                }
+            </tr>
+
+            <!-- 販売 -->
+            <tr>
+                <th rowspan="6" class="title-sm">販売</th>
+                <th class="title-mid">前年</th>
+                @for (var i = loop_start; i < loop_end; i++)
+                {
+                    <td class="numbers">{{sl.salesList[@i].pre_sales_actual | number: $ctrl.getFixed(sl)}}</td>
+                }
+            </tr>
+            <tr>
+                <th class="title-mid">予定</th>
+                @for (var i = loop_start; i < loop_end; i++)
+                {
+                    <td class="numbers form-group" edit-tag-number ng-if="sl.product.isSoldWeight" ng-model="sl.salesList[@i].sales_plan" min="0" step="0.001" fixed="3"></td>
+                    <td class="numbers form-group" edit-tag-number ng-if="!sl.product.isSoldWeight" ng-model="sl.salesList[@i].sales_plan" min="0" step="1" fixed="0"></td>
+                }
+            </tr>
+            <tr>
+                <th class="title-mid">動向</th>
+                @for (var i = loop_start; i < loop_end; i++)
+                {
+                    <td class="numbers">{{sl.salesList[@i].sales_trend | number: $ctrl.getFixed(sl)}}</td>
+                }
+            </tr>
+            <tr>
+                <th class="title-mid">実績</th>
+                @for (var i = loop_start; i < loop_end; i++)
+                {
+                    <td class="numbers">{{sl.salesList[@i].sales_actual | number: $ctrl.getFixed(sl)}}</td>
+                }
+            </tr>
+            <tr>
+                <th class="title-mid">前年比</th>
+                @for (var i = loop_start; i < loop_end; i++)
+                {
+                    <td class="numbers">{{sl.percentPreSales[@i] * 100 | number: 1}}%</td>
+                }
+            </tr>
+            <tr>
+                <th class="title-mid">予実比</th>
+                @for (var i = loop_start; i < loop_end; i++)
+                {
+                    <td class="numbers">{{sl.percentPlan[@i] * 100 | number: 1}}%</td>
+                }
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<a href="javascript:void(0)" id="floatButtonRT" class="btn btn-info btn-fab" ng-click="$ctrl.openSidemenu()"
+   data-toggle="tooltip" data-placement="left" title="" data-original-title="商品一覧を表示">
+    <i class="material-icons">&#xE5C3;</i>
+</a>
+
+<a href="javascript:void(0)" id="floatButton" class="btn btn-primary btn-fab" ng-click="$ctrl.scrollTop()"
+   data-toggle="tooltip" data-placement="left" title="" data-original-title="画面最上部までスクロール">
+    <i class="material-icons">&#xE5D8;</i>
+</a>

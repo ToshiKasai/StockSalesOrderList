@@ -1,0 +1,30 @@
+﻿@{
+    ViewBag.Title = "メールアドレス変更完了";
+}
+
+@section stylesheet{
+    @Styles.Render("~/Content/base")
+}
+@section script{
+    @Scripts.Render("~/Scripts/base")
+}
+
+<div class="container">
+    <ol class="breadcrumb">
+        <li>
+            <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+            @Html.ActionLink("Home", "Index", "Home")
+        </li>
+        <li class="active">
+            @ViewBag.Title
+        </li>
+    </ol>
+</div>
+
+<div class="alert alert-success">
+    <h4>メールアドレスの変更を行いました。</h4>現時点では未確認の状態ですので、必要であれば確認を行ってください。
+</div>
+
+<div class="row">
+    @Html.ActionLink("メールアドレスの確認", "ConfirmEmail", "", htmlAttributes: new { @class = "btn btn-raised btn-default" })
+</div>

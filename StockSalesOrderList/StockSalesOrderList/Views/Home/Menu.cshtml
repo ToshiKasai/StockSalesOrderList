@@ -1,0 +1,53 @@
+﻿@{
+    ViewBag.Title = "MENU";
+}
+@section stylesheet{
+    @Styles.Render("~/Content/base")
+}
+@section script{
+    @Scripts.Render("~/Scripts/base")
+}
+
+<div class="container">
+    <ol class="breadcrumb">
+        <li class="active">
+            <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+            @ViewBag.Title
+        </li>
+    </ol>
+</div>
+
+@using (Html.BeginForm())
+{
+    <div class="row">
+        <div class="col-sm-4">
+            <input type="submit" name="salesview" class="btn btn-default btn-raised btn-block" value=@Html.ResourceRaw("Messages, MainMenuButton01") />
+        </div>
+        <div class="col-sm-4">
+            <input type="submit" name="planupload" class="btn btn-default btn-raised btn-block" value=@Html.ResourceRaw("Messages, MainMenuButton02") />
+        </div>
+	@*
+        <div class="col-sm-4">
+            <input type="submit" name="mymaker" class="btn btn-default btn-raised btn-block" value=@Html.ResourceRaw("Messages, MainMenuButton03") />
+        </div>
+	*@
+        <div class="col-sm-4">
+            <input type="submit" name="change" class="btn btn-default btn-raised btn-block" value=@Html.ResourceRaw("Messages, MainMenuButton04") />
+        </div>
+        <div class="col-sm-4">
+            <input type="submit" name="mail" class="btn btn-default btn-raised btn-block" value=@Html.ResourceRaw("Messages, MainMenuButton05") />
+        </div>
+        <div class="col-sm-4">
+            <input type="submit" name="managed" class="btn btn-default btn-raised btn-block" value=@Html.ResourceRaw("Messages, MainMenuButton06") />
+        </div>
+        @if (User.IsInRole("admin") || User.IsInRole("logview"))
+        {
+            <div class="col-sm-4">
+                <input type="submit" name="logview" class="btn btn-default btn-raised btn-block" value=@Html.ResourceRaw("Messages, MainMenuButton07") />
+            </div>
+            <div class="col-sm-4">
+                <input type="submit" name="appview" class="btn btn-default btn-raised btn-block" value=@Html.ResourceRaw("Messages, MainMenuButton08") />
+            </div>
+        }
+    </div>
+}

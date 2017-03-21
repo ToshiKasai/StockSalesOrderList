@@ -1,0 +1,63 @@
+﻿<div class="container">
+    <ol class="breadcrumb">
+        <li>
+            <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+            @Html.ActionLink("MENU", "Menu", "Home", null, htmlAttributes: new { @target = "_self" })
+        </li>
+        <li>
+            <a ng-click="$ctrl.goMenu();">@Html.Resource("Messages, ManagedMenuButton00")</a>
+        </li>
+        <li>
+            <a ng-click="$ctrl.goList();">@Html.Resource("Messages, ManagedMenuButton01")</a>
+        </li>
+        <li>
+            @Html.Resource("Messages, ManagedUserNew")
+        </li>
+    </ol>
+</div>
+
+<form name="userNew" novalidate ng-submit="$ctrl.submit()">
+    <div class="alert alert-danger err-animate" ng-if="$ctrl.errShow">
+        <span class="col-md-1">
+            <i class="material-icons md-24">error</i>
+        </span>
+        {{$ctrl.errMessage}}
+    </div>
+
+    <div class="form-group" style="margin-top:0px" ng-class="{'has-error': userNew.userName.$invalid}">
+        <label for="userName" class="control-label">ログインＩＤ</label>
+        <input type="text" id="userName" name="userName" class="form-control"
+               ng-model="$ctrl.userNew.userName" ng-required="true" ng-minlength="6" ng-maxlength="256" />
+        <p ng-messages="userNew.userName.$error" ng-if="userNew.userName.$dirty || userNew.$submitted">
+            <span ng-message="required">入力は必須です。</span>
+            <span ng-message="minlength || maxlength">６～２５６文字で入力してください。</span>
+        </p>
+    </div>
+    <div class="form-group">
+        <label for="password" class="control-label">パスワード</label>
+        <input type="password" id="password" name="password" class="form-control" ng-model="$ctrl.userNew.newPassword"
+               ng-required="true" ng-minlength="6" ng-maxlength="256" />
+        <p ng-messages="userNew.newPassword.$error" ng-if="userNew.newPassword.$dirty || userNew.$submitted">
+            <span ng-message="required">入力は必須です。</span>
+            <span ng-message="minlength || maxlength">６～２５６文字で入力してください。</span>
+        </p>
+    </div>
+    <div class="form-group">
+        <label for="name" class="control-label">ユーザー名</label>
+        <input type="text" id="name" name="name" class="form-control" ng-model="$ctrl.userNew.name" />
+    </div>
+    <div class="form-group">
+        <label for="email" class="control-label">メールアドレス</label>
+        <input type="email" id="email" name="email" class="form-control" ng-model="$ctrl.userNew.email" />
+    </div>
+    <div class="togglebutton">
+        <label>
+            使用許可
+            <input type="checkbox" id="enabled" name="enabled" ng-model="$ctrl.userNew.enabled">
+        </label>
+    </div>
+    <div class="row">
+        <button type="submit" class="btn btn-raised btn-success">新規登録</button>
+        <a class="btn btn-raised btn-default" ng-click="$ctrl.goList()">キャンセル</a>
+    </div>
+</form>

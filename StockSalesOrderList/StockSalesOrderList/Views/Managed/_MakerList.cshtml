@@ -1,0 +1,79 @@
+﻿<div class="container">
+    <ol class="breadcrumb">
+        <li>
+            <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+            @Html.ActionLink("MENU", "Menu", "Home", null, htmlAttributes: new { @target = "_self" })
+        </li>
+        <li>
+            <a ng-click="$ctrl.goMenu();">@Html.Resource("Messages, ManagedMenuButton00")</a>
+        </li>
+        <li class="active">
+            <span class="route-animate" ng-animate-ref="s-makerlist">@Html.Resource("Messages, ManagedMenuButton02")</span>
+        </li>
+    </ol>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="btn btn-default btn-raised" data-toggle="collapse" data-target="#collapseExample">
+            絞り込み条件
+            <span class="badge" ng-if="$ctrl.refineBy()">あり</span>
+        </div>
+    </div>
+    <div class="col-md-8">
+        @*
+        <ul class="pagination">
+            <li ng-repeat="i in range($ctrl.makerPage.pages)" ng-class="(i===$ctrl.makerPage.page)?'active':''">
+                <a href="javascript:void(0)" ng-click="$ctrl.makerPage.page = i">{{i+1}}</a>
+            </li>
+        </ul>
+        *@
+    </div>
+</div>
+<div class="collapse" id="collapseExample">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="form-group label-floating">
+                <label for="search-code" class="control-label">メーカーコード</label>
+                <input type="text" id="search-code" ng-model="$ctrl.searchText.code" class="form-control">
+                <span class="help-block">部分一致で絞り込みます。</span>
+            </div>
+            <div class="form-group label-floating">
+                <label for="search-name" class="control-label">メーカー名</label>
+                <input type="text" id="search-name" ng-model="$ctrl.searchText.name" class="form-control">
+                <span class="help-block">部分一致で絞り込みます。</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th class="col-md-2">コード</th>
+            <th class="col-md-8">メーカー名</th>
+            <th class="col-md-1">使用許可</th>
+            <th class="col-md-1">削除状態</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr class="flush-animate mouse-link"
+            ng-repeat="m in $ctrl.makerList | orderBy: ['code'] | filter:$ctrl.searchText"
+            ng-click="$ctrl.makerSelected(m.id)"
+            >
+            @*ng-if="($index>=$ctrl.makerPage.page*$ctrl.makerPage.limit) && ($index<($ctrl.makerPage.page+1)*$ctrl.makerPage.limit)">*@
+            <td class="col-md-2">
+                {{m.code}}
+            </td>
+            <td class="col-md-8">
+                {{m.name}}
+            </td>
+            <td class="col-md-1">
+                {{m.enabled | boolean: "許可" : "不可"}}
+            </td>
+            <td class="col-md-1">
+                {{m.deleted | boolean: "削除" : "－"}}
+            </td>
+        </tr>
+    </tbody>
+</table>

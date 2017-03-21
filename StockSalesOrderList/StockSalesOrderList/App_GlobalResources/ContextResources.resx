@@ -1,0 +1,153 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="CompanyCode" xml:space="preserve">
+    <value>**</value>
+  </data>
+  <data name="IncrementResetGroup" xml:space="preserve">
+    <value>ALTER TABLE groups AUTO_INCREMENT=1</value>
+  </data>
+  <data name="IncrementResetGroupProduct" xml:space="preserve">
+    <value>ALTER TABLE groups_products AUTO_INCREMENT=1</value>
+  </data>
+  <data name="IncrementResetSalesTrend" xml:space="preserve">
+    <value>ALTER TABLE sales_trends AUTO_INCREMENT=1</value>
+  </data>
+  <data name="IncrementResetUserMaker" xml:space="preserve">
+    <value>ALTER TABLE users_makers AUTO_INCREMENT=1</value>
+  </data>
+  <data name="SelectOfficeSalesViews" xml:space="preserve">
+    <value>SELECT sls.product_id AS product_id ,sls.detail_date AS detail_date ,ofs.id AS office_id ,ofs.name AS office_name ,IFNULL(sls.plan,0) AS sales_plan ,IFNULL(sls.actual,0) AS sales_actual FROM sales sls INNER JOIN offices ofs ON sls.office_id = ofs.id WHERE sls.detail_date &gt;= @p0 AND sls.detail_date &lt; @p1 AND sls.product_id IN (@p2)  AND sls.deleted = 0 AND ofs.deleted = 0 AND ofs.code &lt;&gt; '**' ORDER BY sls.detail_date ,ofs.id</value>
+  </data>
+  <data name="SelectOfficesSalesViews" xml:space="preserve">
+    <value>SELECT OV.product_id ,OV.detail_date ,OV.office_id ,ofs.name ,SUM(OV.sales_plan) AS sales_plan ,SUM(OV.sales_actual) AS sales_actual ,SUM(OV.pre_sales_plan) AS pre_sales_plan ,SUM(OV.pre_sales_actual) AS pre_sales_actual FROM ( SELECT sls.product_id AS product_id ,sls.detail_date AS detail_date ,sls.office_id AS office_id ,IFNULL(sls.plan,0) AS sales_plan ,IFNULL(sls.actual,0) AS sales_actual ,0 AS pre_sales_plan ,0 AS pre_sales_actual FROM sales sls WHERE sls.detail_date &gt;= @p0 AND sls.detail_date &lt; @p1 AND sls.product_id IN (@p2) AND sls.deleted = 0 UNION ALL SELECT osls.product_id AS product_id ,DATE_ADD(osls.detail_date,INTERVAL 1 YEAR) AS detail_date ,osls.office_id AS office_id ,0 AS sales_plan ,0 AS sales_actual ,IFNULL(osls.plan,0) AS pre_sales_plan ,IFNULL(osls.actual,0) AS pre_sales_actual FROM sales osls WHERE osls.detail_date &gt;= DATE_SUB(@p0,INTERVAL 1 YEAR) AND osls.detail_date &lt; DATE_SUB(@p1,INTERVAL 1 YEAR) AND osls.product_id IN (@p2) AND osls.deleted = 0 ) OV INNER JOIN offices ofs ON OV.office_id = ofs.id WHERE ofs.deleted = 0 AND ofs.code &lt;&gt; '**' GROUP BY OV.product_id ,OV.detail_date ,OV.office_id ORDER BY OV.product_id ,OV.detail_date ,ofs.code</value>
+  </data>
+  <data name="SelectSalesViews" xml:space="preserve">
+    <value>SELECT SV.product_id AS product_id ,SV.detail_date AS detail_date ,SUM(SV.zaiko_actual) AS zaiko_actual ,SUM(SV.order_plan) AS order_plan ,SUM(SV.order_actual) AS order_actual ,SUM(SV.invoice_plan) AS invoice_plan ,SUM(SV.invoice_actual) AS invoice_actual ,SUM(SV.invoice_zan) AS invoice_zan ,SUM(SV.invoice_adjust) AS invoice_adjust ,SUM(SV.pre_sales_actual) AS pre_sales_actual ,SUM(SV.sales_plan) AS sales_plan ,SUM(SV.sales_actual) AS sales_actual ,SUM(SV.sales_trend) AS sales_trend FROM ( SELECT stc.product_id AS product_id ,stc.detail_date AS detail_date ,IFNULL(stc.stocks,0) AS zaiko_actual ,0 AS order_plan ,0 AS order_actual ,0 AS invoice_plan ,0 AS invoice_actual ,0 AS invoice_zan ,0 AS invoice_adjust ,0 AS pre_sales_actual ,0 AS sales_plan ,0 AS sales_actual ,0 AS sales_trend FROM stocks stc WHERE stc.detail_date &gt;= @p0 AND stc.detail_date &lt; @p1 AND stc.product_id IN (@p2) AND stc.deleted = 0 UNION SELECT trd.product_id AS product_id ,trd.detail_date AS detail_date ,0 AS zaiko_actual ,IFNULL(trd.orders_plan_qty,0) AS order_plan ,IFNULL(trd.orders_qty,0) AS order_actual ,IFNULL(trd.invoice_plan_qty,0) AS invoice_plan ,IFNULL(trd.invoice_qty,0) AS invoice_actual ,IFNULL(trd.remaining_invoice_qty,0) AS invoice_zan ,IFNULL(trd.adjustment_invoice_qty,0) AS invoice_adjust ,0 AS pre_sales_actual ,0 AS sales_plan ,0 AS sales_actual ,0 AS sales_trend FROM trades trd WHERE trd.detail_date &gt;= DATE_SUB(@p0, INTERVAL 1 MONTH) AND trd.detail_date &lt; @p1 AND trd.product_id IN (@p2) AND trd.deleted = 0 UNION SELECT osls.product_id AS product_id ,DATE_ADD(osls.detail_date, INTERVAL 1 YEAR) AS detail_date ,0 AS zaiko_actual ,0 AS order_plan ,0 AS order_actual ,0 AS invoice_plan ,0 AS invoice_actual ,0 AS invoice_zan ,0 AS invoice_adjust ,SUM(IFNULL(osls.actual,0)) AS pre_sales_actual ,0 AS sales_plan ,0 AS sales_actual ,0 AS sales_trend FROM sales osls INNER JOIN offices ofs ON osls.office_id = ofs.id WHERE osls.detail_date &gt;= DATE_SUB(@p0, INTERVAL 1 YEAR) AND osls.detail_date &lt; DATE_SUB(@p1, INTERVAL 1 YEAR) AND osls.product_id IN (@p2) AND osls.deleted = 0 AND ofs.deleted = 0 AND ofs.code &lt;&gt; '**' GROUP BY osls.product_id ,osls.detail_date UNION SELECT sls.product_id AS product_id ,sls.detail_date AS detail_date ,0 AS zaiko_actual ,0 AS order_plan ,0 AS order_actual ,0 AS invoice_plan ,0 AS invoice_actual ,0 AS invoice_zan ,0 AS invoice_adjust ,0 AS pre_sales_actual ,0 AS sales_plan ,SUM(IFNULL(sls.actual,0)) AS sales_actual ,0 AS sales_trend FROM sales sls INNER JOIN offices ofs ON sls.office_id = ofs.id WHERE sls.detail_date &gt;= @p0 AND sls.detail_date &lt; @p1 AND sls.product_id IN (@p2) AND sls.deleted = 0 AND ofs.deleted = 0 AND ofs.code &lt;&gt; '**' GROUP BY sls.product_id ,sls.detail_date UNION SELECT sls.product_id AS product_id ,sls.detail_date AS detail_date ,0 AS zaiko_actual ,0 AS order_plan ,0 AS order_actual ,0 AS invoice_plan ,0 AS invoice_actual ,0 AS invoice_zan ,0 AS invoice_adjust ,0 AS pre_sales_actual ,SUM(IFNULL(sls.plan,0)) AS sales_plan ,0 AS sales_actual ,0 AS sales_trend FROM sales sls INNER JOIN offices ofs ON sls.office_id = ofs.id WHERE sls.detail_date &gt;= @p0 AND sls.detail_date &lt; @p1 AND sls.product_id IN (@p2) AND sls.deleted = 0 AND ofs.code = '**' GROUP BY sls.product_id ,sls.detail_date UNION SELECT strd.product_id AS product_id ,DATE(DATE_FORMAT(strd.detail_date,'%Y/%m/1')) AS detail_date ,0 AS zaiko_actual ,0 AS order_plan ,0 AS order_actual ,0 AS invoice_plan ,0 AS invoice_actual ,0 AS invoice_zan ,0 AS invoice_adjust ,0 AS pre_sales_actual ,0 AS sales_plan ,0 AS sales_actual ,SUM(strd.quantity) AS sales_trend FROM sales_trends strd WHERE strd.detail_date &gt;= @p0 AND strd.detail_date &lt; @p1 AND strd.product_id IN (@p2) AND strd.deleted = 0 GROUP BY strd.product_id ,DATE(DATE_FORMAT(strd.detail_date,'%Y/%m/1')) ) SV GROUP BY product_id ,detail_date ORDER BY product_id ,detail_date</value>
+  </data>
+  <data name="WriteLogSql" xml:space="preserve">
+    <value>INSERT INTO application_logs (processing_date,process_name,user_id,message) VALUES (@p0,@p1,@p2,@p3)</value>
+  </data>
+  <data name="_SelectDownloadData" xml:space="preserve">
+    <value>SELECT SV.product_id AS product_id ,SV.detail_date AS detail_date ,SUM(SV.zaiko_actual) AS zaiko_actual ,SUM(SV.order_plan) AS order_plan ,SUM(SV.order_actual) AS order_actual ,SUM(SV.invoice_plan) AS invoice_plan ,SUM(SV.invoice_actual) AS invoice_actual ,SUM(SV.invoice_zan) AS invoice_zan ,SUM(SV.pre_sales_Actual) AS pre_sales_Actual ,SUM(SV.sales_plan) AS sales_plan ,SUM(SV.sales_actual) AS sales_actual ,SUM(SV.sales_trend) AS sales_trend FROM ( SELECT stc.product_id AS product_id ,stc.detail_date AS detail_date ,IFNULL(stc.stocks,0) AS zaiko_actual ,0 AS order_plan ,0 AS order_actual ,0 AS invoice_plan ,0 AS invoice_actual ,0 AS invoice_zan ,0 AS pre_sales_Actual ,0 AS sales_plan ,0 AS sales_actual ,0 as sales_trend FROM stocks stc WHERE stc.detail_date &gt;= @p0 AND stc.detail_date &lt; DATE_ADD(@p0, INTERVAL 18 MONTH) AND stc.product_id IN (@p1) AND stc.deleted = 0 UNION SELECT trd.product_id AS product_id ,trd.detail_date AS detail_date ,0 AS zaiko_actual ,IFNULL(trd.orders_plan_qty,0) AS order_plan ,IFNULL(trd.orders_qty,0) AS order_actual ,IFNULL(trd.invoice_plan_qty,0) AS invoice_plan ,IFNULL(trd.invoice_qty,0) AS invoice_actual ,IFNULL(trd.remaining_invoice_qty,0) AS invoice_zan ,0 AS pre_sales_Actual ,0 AS sales_plan ,0 AS sales_actual ,0 as sales_trend FROM trades trd WHERE trd.detail_date &gt;= @p0 AND trd.detail_date &lt; DATE_ADD(@p0, INTERVAL 18 MONTH) AND trd.product_id IN (@p1) AND trd.deleted = 0 UNION SELECT osls.product_id AS product_id ,DATE_ADD(osls.detail_date, INTERVAL 1 YEAR) AS detail_date ,0 AS zaiko_actual ,0 AS order_plan ,0 AS order_actual ,0 AS invoice_plan ,0 AS invoice_actual ,0 AS invoice_zan ,SUM(IFNULL(osls.actual,0)) AS pre_sales_Actual ,0 AS sales_plan ,0 AS sales_actual ,0 as sales_trend FROM sales osls INNER JOIN offices ofs ON osls.office_id = ofs.id WHERE osls.detail_date &gt;= DATE_ADD(@p0, INTERVAL - 1 YEAR) AND osls.detail_date &lt; DATE_ADD(@p0, INTERVAL 6 MONTH) AND osls.product_id IN (@p1) AND osls.deleted = 0 AND ofs.deleted = 0 AND ofs.code &lt;&gt; '**' GROUP BY osls.product_id ,osls.detail_date UNION SELECT sls.product_id AS product_id ,sls.detail_date AS detail_date ,0 AS zaiko_actual ,0 AS order_plan ,0 AS order_actual ,0 AS invoice_plan ,0 AS invoice_actual ,0 AS invoice_zan ,0 AS pre_sales_Actual ,0 AS sales_plan ,SUM(IFNULL(sls.actual,0)) AS sales_actual ,0 as sales_trend FROM sales sls INNER JOIN offices ofs ON sls.office_id = ofs.id WHERE sls.detail_date &gt;= @p0 AND sls.detail_date &lt; DATE_ADD(@p0, INTERVAL 18 MONTH) AND sls.product_id IN (@p1) AND sls.deleted = 0 AND ofs.deleted = 0 AND ofs.code &lt;&gt; '**' GROUP BY sls.product_id ,sls.detail_date UNION SELECT sls.product_id AS product_id ,sls.detail_date AS detail_date ,0 AS zaiko_actual ,0 AS order_plan ,0 AS order_actual ,0 AS invoice_plan ,0 AS invoice_actual ,0 AS invoice_zan ,0 AS pre_sales_Actual ,SUM(IFNULL(sls.plan,0)) AS sales_plan ,0 AS sales_actual ,0 as sales_trend FROM sales sls INNER JOIN offices ofs ON sls.office_id = ofs.id WHERE sls.detail_date &gt;= @p0 AND sls.detail_date &lt; DATE_ADD(@p0, INTERVAL 18 MONTH) AND sls.product_id IN (@p1) AND sls.deleted = 0 AND ofs.code = '**' GROUP BY sls.product_id ,sls.detail_date UNION SELECT strd.product_id AS product_id ,DATE(DATE_FORMAT(strd.detail_date,'%Y/%m/1')) AS detail_date ,0 AS zaiko_actual ,0 AS order_plan ,0 AS order_actual ,0 AS invoice_plan ,0 AS invoice_actual ,0 AS invoice_zan ,0 AS pre_sales_Actual ,0 AS sales_plan ,0 AS sales_actual ,SUM(strd.quantity) as sales_trend FROM sales_trends strd WHERE strd.detail_date &gt;= @p0 AND strd.detail_date &lt; DATE_ADD(@p0, INTERVAL 18 MONTH) AND strd.product_id IN (@p1) AND strd.deleted = 0 GROUP BY strd.product_id, DATE(DATE_FORMAT(strd.detail_date,'%Y/%m/1')) ) SV GROUP BY product_id ,detail_date ORDER BY product_id ,detail_date</value>
+  </data>
+  <data name="_SelectDownloadOfficeData" xml:space="preserve">
+    <value>SELECT sls.product_id AS product_id ,sls.detail_date AS detail_date ,ofs.id AS office_id ,ofs.name AS office_name ,IFNULL(sls.plan,0) AS sales_plan ,IFNULL(sls.actual,0) AS sales_actual FROM sales sls INNER JOIN offices ofs ON sls.office_id = ofs.id WHERE sls.detail_date &gt;= DATE_ADD(@p0, INTERVAL -1 YEAR) AND sls.detail_date &lt; DATE_ADD(@p0, INTERVAL 18 MONTH) AND sls.product_id IN (@p1) AND sls.deleted = 0 AND ofs.deleted = 0 AND ofs.code &lt;&gt; '**' ORDER BY sls.detail_date ,ofs.id</value>
+  </data>
+</root>

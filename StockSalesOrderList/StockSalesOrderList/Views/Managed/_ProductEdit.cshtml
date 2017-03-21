@@ -1,0 +1,140 @@
+﻿<div class="container">
+    <ol class="breadcrumb">
+        <li>
+            <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+            @Html.ActionLink("MENU", "Menu", "Home", null, htmlAttributes: new { @target = "_self" })
+        </li>
+        <li>
+            <a ng-click="$ctrl.goMenu();">@Html.Resource("Messages, ManagedMenuButton00")</a>
+        </li>
+        <li>
+            <a ng-click="$ctrl.goList();">@Html.Resource("Messages, ManagedMenuButton04")</a>
+        </li>
+        <li>
+            @Html.Resource("Messages, ManagedProductEdit")
+        </li>
+    </ol>
+</div>
+
+<form name="productEdit" novalidate ng-submit="$ctrl.submit()">
+    <div class="alert alert-danger err-animate" ng-if="$ctrl.errShow">
+        <span class="col-md-1">
+            <i class="material-icons md-24">error</i>
+        </span>
+        {{$ctrl.errMessage}}
+    </div>
+
+    <div class="panel">
+        <div class="panel-heading">編集対象商品</div>
+        <div class="panel-body">
+            <span>{{$ctrl.productData.code}}</span>
+            <span>{{$ctrl.productData.name}}</span>
+            <div>入数：{{$ctrl.productData.quantity}}</div>
+            <div>メーカー：{{$ctrl.productData.makerCode}} {{$ctrl.productData.makerName}}</div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="palette" class="control-label">パレット入り数</label>
+        <input type="number" id="palette" name="palette" class="form-control"
+               ng-model="$ctrl.productData.paletteQuantity" />
+    </div>
+
+    <div class="form-group">
+        <label for="palette" class="control-label">カートン入り数</label>
+        <input type="number" id="palette" name="palette" class="form-control"
+               ng-model="$ctrl.productData.cartonQuantity" />
+    </div>
+
+    <div class="form-group">
+        <label for="palette" class="control-label">カートン入り数</label>
+        <input type="number" id="palette" name="palette" class="form-control"
+               ng-model="$ctrl.productData.cartonQuantity" />
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="palette" class="control-label">ケース高さ</label>
+                <input type="number" id="palette" name="palette" class="form-control"
+                       ng-model="$ctrl.productData.caseHeight" />
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="palette" class="control-label">ケース幅</label>
+                <input type="number" id="palette" name="palette" class="form-control"
+                       ng-model="$ctrl.productData.caseWidth" />
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="palette" class="control-label">ケース奥行</label>
+                <input type="number" id="palette" name="palette" class="form-control"
+                       ng-model="$ctrl.productData.caseDepth" />
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="palette" class="control-label">ケース容量</label>
+                <input type="number" id="palette" name="palette" class="form-control"
+                       ng-model="$ctrl.productData.caseCapacity" />
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="palette" class="control-label">リードタイム</label>
+        <input type="number" id="palette" name="palette" class="form-control"
+               ng-model="$ctrl.productData.leadTime" />
+    </div>
+
+    <div class="form-group">
+        <label for="palette" class="control-label">発注間隔</label>
+        <input type="number" id="palette" name="palette" class="form-control"
+               ng-model="$ctrl.productData.orderInterval" />
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="palette" class="control-label">旧商品ＩＤ</label>
+                <input type="number" id="palette" name="palette" class="form-control"
+                       ng-model="$ctrl.productData.oldProductModelId" />
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="palette" class="control-label">倍率</label>
+                <input type="number" id="palette" name="palette" class="form-control"
+                       ng-model="$ctrl.productData.magnification" />
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="palette" class="control-label">最小発注数量</label>
+        <input type="number" id="palette" name="palette" class="form-control"
+               ng-model="$ctrl.productData.minimumOrderQuantity" />
+    </div>
+
+    <div class="togglebutton">
+        <label>
+            使用許可
+            <input type="checkbox" id="enabled" name="enabled" ng-model="$ctrl.productData.enabled">
+        </label>
+    </div>
+
+    <!--
+    <div class="togglebutton">
+        <label>
+            削除
+            <input type="checkbox" id="deleted" name="deleted" ng-model="$ctrl.productData.deleted">
+        </label>
+    </div>
+    -->
+    <div class="row">
+        <button type="submit" class="btn btn-raised btn-success">更新</button>
+        <a class="btn btn-raised btn-default" ng-click="$ctrl.goList()">キャンセル</a>
+    </div>
+</form>

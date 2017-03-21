@@ -1,0 +1,43 @@
+﻿@model StockSalesOrderList.Models.ChangeMailViewModel
+
+@{
+    ViewBag.Title = "メールアドレス変更";
+}
+@section stylesheet{
+    @Styles.Render("~/Content/base")
+}
+@section script{
+    @Scripts.Render("~/Scripts/base")
+}
+
+<div class="container">
+    <ol class="breadcrumb">
+        <li>
+            <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+            @Html.ActionLink("Home", "Index", "Home")
+        </li>
+        <li class="active">
+            @ViewBag.Title
+        </li>
+    </ol>
+</div>
+
+<div class="alert alert-info">
+    メールアドレスの変更を行います。変更後はメールアドレス未確認の状態となります。
+</div>
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(false, "", htmlAttributes: new { @class = "text-warning" })
+
+    @Html.AntiForgeryToken()
+    <div class="@Html.ValidateLabelClass(model => model.Email)">
+        @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label label-floating" })
+        @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Email, "", htmlAttributes: new { @class = "text-warning" })
+        <span class="help-block">@Html.GetModelPropertyName(model => model.Email)を入力してください。</span>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="メールアドレス変更" class="btn btn-raised btn-success" />
+    </div>
+}

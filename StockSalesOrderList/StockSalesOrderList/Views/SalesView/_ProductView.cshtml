@@ -1,0 +1,410 @@
+﻿<div class="container">
+    <ol class="breadcrumb">
+        <li>
+            <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+            @Html.ActionLink("MENU", "Menu", "Home", null, htmlAttributes: new { @target = "_self" })
+        </li>
+        <li>
+            <a ng-click="$ctrl.goMaker();">@Html.Resource("Messages, SalesViewScreen01")</a>
+        </li>
+        <li>
+            <a ng-click="$ctrl.goGroup();">@Html.Resource("Messages, SalesViewScreen02")</a>
+        </li>
+        <li>
+            <a ng-click="$ctrl.goSales();">@Html.Resource("Messages, SalesViewScreen03")</a>
+        </li>
+        <li class="active">
+            @Html.Resource("Messages, SalesViewScreen04")
+            ({{$ctrl.salesData.product.code}} : {{$ctrl.salesData.product.name}})
+        </li>
+    </ol>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="panel">
+            <div class="panel-heading">年度</div>
+            <div class="panel-body">
+                {{$ctrl.session.year}} 年
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="panel mouse-link" ng-click="$ctrl.goMaker()">
+            <div class="panel-heading">選択メーカー</div>
+            <div class="panel-body">
+                {{$ctrl.session.makerCode}}
+                {{$ctrl.session.makerName}}
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="panel mouse-link" ng-click="$ctrl.goGroup()">
+            <div class="panel-heading">選択グループ</div>
+            <div class="panel-body">
+                {{$ctrl.session.groupCode}}
+                {{$ctrl.session.groupName}}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <canvas id="line" class="chart chart-line"
+            chart-data="$ctrl.charts.data"
+            chart-labels="$ctrl.charts.labels"
+            chart-series="$ctrl.charts.series"
+            chart-options="$ctrl.charts.options"
+            chart-dataset-override="$ctrl.charts.datasetOverride"
+            height="100" ng-click="$ctrl.toggleCanvas()">
+    </canvas>
+</div>
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <article id="article-{{$ctrl.salesData.product.id}}">{{$ctrl.salesData.product.code}} : {{$ctrl.salesData.product.name}}</article>
+        （
+        {{$ctrl.salesData.product.isSoldWeight | boolean : "計量品" : "ピース品"}}
+        ケース：{{$ctrl.salesData.product.quantity}}
+        パレット：{{$ctrl.salesData.product.paletteQuantity | nullfilter : "未登録"}}
+        リードタイム：{{$ctrl.salesData.product.leadTime | nullfilter : "未登録"}}
+        ）
+    </div>
+    @{
+        var loop_start = 1;
+        var loop_end = 13;
+    }
+    <table class="table">
+        <thead>
+            <tr>
+                <th class="title-sm">&nbsp;</th>
+                <th class="title-mid">&nbsp;</th>
+                @for (var i = 0; i < 12; i++)
+                {
+                    <th class="numbers">@((i + 9) % 12 + 1)月</th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th rowspan="2" class="title-sm">月初<br />在庫</th>
+                <th class="title-mid">予測</th>
+                @for (var i = loop_start; i < loop_end; i++)
+                {
+                    <td class="numbers" ng-class="$ctrl.salesData.zaikoPlan[@i]<0 ? 'danger':''">
+                        {{$ctrl.salesData.zaikoPlan[@i] | number: $ctrl.getFixed()}}
+                    </td>
+                }
+            </tr>
+            <tr>
+                <th class="title-mid">実績</th>
+                @for (var i = loop_start; i < loop_end; i++)
+                {
+                    <td class="numbers">{{$ctrl.salesData.salesList[@i].zaiko_actual | number: $ctrl.getFixed()}}</td>
+                }
+            </tr>
+            <!-- 発注 -->
+            <tr>
+                <th rowspan="2" class="title-sm">発注</th>
+                <th class="title-mid">予定</th>
+                @for (var i = loop_start; i < loop_end; i++)
+                {
+                    <td class="numbers">{{$ctrl.salesData.salesList[@i].order_plan | number: $ctrl.getFixed()}}</td>
+                }
+            </tr>
+            <tr>
+                <th class="title-mid">実績</th>
+                @for (var i = loop_start; i < loop_end; i++)
+                {
+                    <td class="numbers">{{$ctrl.salesData.salesList[@i].order_actual | number: $ctrl.getFixed()}}</td>
+                }
+            </tr>
+            <!-- 入荷 -->
+            <tr>
+                <th rowspan="3" class="title-sm" ng-if="!$ctrl.salesData.invoiceShow">入荷</th>
+                <th rowspan="5" class="title-sm" ng-if="$ctrl.salesData.invoiceShow">入荷</th>
+                <th class="title-mid">予定</th>
+                @for (var i = loop_start; i < loop_end; i++)
+                {
+                    <td class="numbers">{{$ctrl.salesData.salesList[@i].invoice_plan | number: $ctrl.getFixed()}}</td>
+                }
+            </tr>
+            <tr>
+                <th class="title-mid">実績</th>
+                @for (var i = loop_start; i < loop_end; i++)
+                {
+                    <td class="numbers">{{$ctrl.salesData.salesList[@i].invoice_actual | number: $ctrl.getFixed()}}</td>
+                }
+            </tr>
+            <tr>
+                <th class="title-mid mouse-link" ng-click="$ctrl.toggleInvoice()">
+                    残数
+                    <span ng-if="$ctrl.salesData.invoiceShow">
+                        <i class="material-icons md-18">&#xE5CE;</i>
+                    </span>
+                    <span ng-if="!$ctrl.salesData.invoiceShow">
+                        <i class="material-icons md-18">&#xE5CF;</i>
+                    </span>
+                </th>
+                @for (var i = loop_start; i < loop_end; i++)
+                {
+                    <td class="numbers">{{$ctrl.salesData.salesList[@i].invoice_zan - $ctrl.salesData.salesList[@i].invoice_adjust | number: $ctrl.getFixed()}}</td>
+                }
+            </tr>
+            <tr ng-if="$ctrl.salesData.invoiceShow">
+                <th class="title-mid info">残数</th>
+                @for (var i = loop_start; i < loop_end; i++)
+                {
+                    <td class="numbers info">{{$ctrl.salesData.salesList[@i].invoice_zan | number: $ctrl.getFixed()}}</td>
+                }
+            </tr>
+            <tr ng-if="$ctrl.salesData.invoiceShow">
+                <th class="title-mid info">調整</th>
+                @for (var i = loop_start; i < loop_end; i++)
+                {
+                    <td class="numbers info">{{$ctrl.salesData.salesList[@i].invoice_adjust | number: $ctrl.getFixed()}}</td>
+                }
+            </tr>
+
+            <!-- 販売 -->
+            <tr>
+                <th ng-if="$ctrl.showOffice" rowspan="{{6+$ctrl.officeMax}}" class="title-sm">販売</th>
+                <th ng-if="!$ctrl.showOffice" rowspan="6" class="title-sm">販売</th>
+                <th class="title-mid">前年</th>
+                @for (var i = loop_start; i < loop_end; i++)
+                {
+                    <td class="numbers">{{$ctrl.salesData.salesList[@i].pre_sales_actual | number: $ctrl.getFixed()}}</td>
+                }
+            </tr>
+            <tr>
+                <th class="title-mid">予定</th>
+                @for (var i = loop_start; i < loop_end; i++)
+                {
+                    <td class="numbers">{{$ctrl.salesData.salesList[@i].sales_plan | number: $ctrl.getFixed()}}</td>
+                }
+            </tr>
+            <tr>
+                <th class="title-mid">動向</th>
+                @for (var i = loop_start; i < loop_end; i++)
+                {
+                    <td class="numbers">{{$ctrl.salesData.salesList[@i].sales_trend | number: $ctrl.getFixed()}}</td>
+                }
+            </tr>
+            <tr>
+                <th class="title-mid mouse-link" ng-click="$ctrl.toggleOffice()">
+                    実績
+                    <span ng-if="$ctrl.showOffice">
+                        <i class="material-icons md-18">&#xE5CE;</i>
+                    </span>
+                    <span ng-if="!$ctrl.showOffice">
+                        <i class="material-icons md-18">&#xE5CF;</i>
+                    </span>
+                </th>
+                @for (var i = loop_start; i < loop_end; i++)
+                {
+                    <td class="numbers">{{$ctrl.salesData.salesList[@i].sales_actual | number: $ctrl.getFixed()}}</td>
+                }
+            </tr>
+            @for (var j = 0; j < 5; j++)
+            {
+                <tr ng-if="$ctrl.showOffice">
+                    <th class="title-mid info">&nbsp;{{$ctrl.salesData.officeSales[0][@j].office_name}}</th>
+                    @for (var i = loop_start; i < loop_end; i++)
+                    {
+                        <td class="numbers info">
+                            {{$ctrl.salesData.officeSales[@i][@j].sales_actual | number:$ctrl.getFixed()}}
+                        </td>
+                    }
+                </tr>
+            }
+            <tr>
+                <th class="title-mid">前年比</th>
+                @for (var i = loop_start; i < loop_end; i++)
+                {
+                    <td class="numbers">{{$ctrl.salesData.percentPreSales[@i] * 100 | number: 1}}%</td>
+                }
+            </tr>
+            <tr>
+                <th class="title-mid">予実比</th>
+                @for (var i = loop_start; i < loop_end; i++)
+                {
+                    <td class="numbers">{{$ctrl.salesData.percentPlan[@i] * 100 | number: 1}}%</td>
+                }
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="panel panel-info" ng-if="$ctrl.currentData!==null">
+    <div class="panel-heading">
+        現在在庫データ
+    </div>
+    <div class="panel-body" ng-if="$ctrl.currentData.stocks.length>0">
+        <span>更新日：{{$ctrl.currentData.stockMaxDate | date: "yyyy/MM/dd hh:mm"}}</span>
+    </div>
+    <table class="table table-bordered" ng-if="$ctrl.currentData.stocks.length>0">
+        <thead>
+            <tr>
+                <th class="col-md-1">倉庫</th>
+                <th class="col-md-4">倉庫名</th>
+                <th class="col-md-2">販売在庫</th>
+                <th class="col-md-2">倉庫在庫</th>
+                <th class="col-md-2">賞味期限</th>
+                <th class="col-md-1">打検</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="st in $ctrl.currentData.stocks">
+                <td class="col-md-1">{{st.warehouseCode}}</td>
+                <td class="col-md-4">{{st.warehouseName}}</td>
+                <td class="numbers col-md-2" ng-if="$ctrl.salesData.product.isSoldWeight">
+                    {{st.logicalQuantity | number:3}}
+                </td>
+                <td class="numbers col-md-2" ng-if="!$ctrl.salesData.product.isSoldWeight">
+                    {{st.logicalQuantity | number:0}}
+                </td>
+
+                <td class="numbers col-md-2" ng-if="$ctrl.salesData.product.isSoldWeight">
+                    {{st.actualQuantity | number:3}}
+                </td>
+                <td class="numbers col-md-2" ng-if="!$ctrl.salesData.product.isSoldWeight">
+                    {{st.actualQuantity | number:0}}
+                </td>
+                <td class="col-md-2">{{st.expirationDate | date: "yyyy/MM/dd"}}</td>
+                <td class="col-md-1">{{st.stateName}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="row">
+    <div class="col-md-5">
+        <div class="panel panel-info" ng-if="$ctrl.currentData!==null">
+            <div class="panel-heading">
+                発注情報
+            </div>
+            <div class="panel-body" ng-if="$ctrl.currentData.orders.length>0">
+                <span>更新日：{{$ctrl.currentData.orderMaxDate | date: "yyyy/MM/dd hh:mm"}}</span>
+            </div>
+            <table class="table table-bordered" ng-if="$ctrl.currentData.orders.length>0">
+                <thead>
+                    <tr>
+                        <th class="col-md-4">発注Ｎｏ</th>
+                        <th class="col-md-4">発注日</th>
+                        <th class="col-md-4">発注数量</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="od in $ctrl.currentData.orders | orderBy : ['orderDate','orderNo']">
+                        <td class="col-md-4">{{od.orderNo}}</td>
+                        <td class="col-md-4">{{od.orderDate | date: "yyyy/MM/dd"}}</td>
+                        <td class="numbers col-md-4" ng-if="$ctrl.salesData.product.isSoldWeight">
+                            {{od.order | number:3}}
+                        </td>
+                        <td class="numbers col-md-4" ng-if="!$ctrl.salesData.product.isSoldWeight">
+                            {{od.order | number:0}}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="col-md-7">
+        <div class="panel panel-info" ng-if="$ctrl.currentData!==null">
+            <div class="panel-heading">
+                インボイス情報
+            </div>
+            <div class="panel-body" ng-if="$ctrl.currentData.invoices.length>0">
+                <span>更新日：{{$ctrl.currentData.invoiceMaxDate | date: "yyyy/MM/dd hh:mm"}}</span>
+            </div>
+            <table class="table table-bordered" ng-if="$ctrl.currentData.invoices.length>0">
+                <thead>
+                    <tr>
+                        <th class="col-md-3">インボイスＮｏ</th>
+                        <th class="col-md-2">仕入日付</th>
+                        <th class="col-md-2">仕入数量</th>
+                        <th class="col-md-2">入港日</th>
+                        <th class="col-md-2">通関日</th>
+                        <th class="col-md-1">倉庫</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="iv in $ctrl.currentData.invoices | orderBy : ['purchaseDate','eta','customsClearanceDate'] ">
+                        <td class="col-md-3">{{iv.invoiceNo}}</td>
+                        <td class="col-md-2">{{iv.purchaseDate | date: "yyyy/MM/dd"}}</td>
+                        <td class="numbers col-md-2" ng-if="$ctrl.salesData.product.isSoldWeight">
+                            {{iv.quantity | number:3}}
+                        </td>
+                        <td class="numbers col-md-2" ng-if="!$ctrl.salesData.product.isSoldWeight">
+                            {{iv.quantity | number:0}}
+                        </td>
+                        <td class="col-md-2">{{iv.eta | date: "yyyy/MM/dd"}}</td>
+                        <td class="col-md-2">{{iv.customsClearanceDate | date: "yyyy/MM/dd"}}</td>
+                        <td class="col-md-1">{{iv.warehouseCode}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="inputModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">販売動向登録／編集</h4>
+            </div>
+            <div class="modal-body">
+                <div class="warning" ng-if="$ctrl.modalErrMessage!==null">{{$ctrl.modalErrMessage}}</div>
+                <div class="form-group">
+                    <label for="detail_date" class="control-label">日付</label>
+                    <input type="text" id="detail_date" name="detail_date" class="form-control" ng-model="$ctrl.modelDateEdit" data-toggle="datepicker" />
+                </div>
+                <div class="form-group">
+                    <label for="quantity" class="control-label">数量</label>
+                    <input type="number" id="quantity" name="quantity" class="form-control" ng-model="$ctrl.modelQtyEdit" />
+                </div>
+                <div class="form-group">
+                    <label for="comments" class="control-label">コメント</label>
+                    <textarea id="comments" name="comments" class="form-control" ng-model="$ctrl.modelCommentEdit"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" ng-click="$ctrl.registTrendData()">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        販売動向情報
+        &nbsp;&nbsp;
+        <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#inputModal" ng-click="$ctrl.newTrendEdit()">
+            新規登録
+        </button>
+    </div>
+    <table class="table table-hover table-bordered">
+        <thead>
+            <tr>
+                <th class="col-md-2">日付</th>
+                <th class="col-md-2">数量</th>
+                <th class="col-md-6">コメント</th>
+                <th class="col-md-2">入力/変更者</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="trd in $ctrl.trendList | orderBy : ['detail_date']" ng-click="$ctrl.setTrendEdit(trd.id)">
+                <td class="col-md-2">{{trd.detail_date | date: "yyyy/MM/dd"}}</td>
+                <td class="col-md-2 numbers">{{trd.quantity | number: $ctrl.getFixed()}}</td>
+                <td class="col-md-6">{{trd.comments | abbreviate : 25}}</td>
+                <td class="col-md-2">{{trd.user_name}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<a href="javascript:void(0)" id="floatButton" class="btn btn-primary btn-fab" ng-click="$ctrl.scrollTop()">
+    <i class="material-icons">&#xE5D8;</i>
+</a>

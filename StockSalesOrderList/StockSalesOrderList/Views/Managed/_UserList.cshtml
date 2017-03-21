@@ -1,0 +1,98 @@
+﻿<div class="container">
+    <ol class="breadcrumb">
+        <li>
+            <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+            @Html.ActionLink("MENU", "Menu", "Home", null, htmlAttributes: new { @target = "_self" })
+        </li>
+        <li>
+            <a ng-click="$ctrl.goMenu();">@Html.Resource("Messages, ManagedMenuButton00")</a>
+        </li>
+        <li class="active">
+            <span class="route-animate" ng-animate-ref="s-userlist">@Html.Resource("Messages, ManagedMenuButton01")</span>
+        </li>
+    </ol>
+</div>
+
+<div class="row">
+    <div class="col-md-3">
+        <a class="btn btn-raised btn-primary" ng-if="$ctrl.hasUserRole()" ng-click="$ctrl.goNew()">新規登録</a>
+    </div>
+
+    <div class="col-md-3">
+        <div class="btn btn-default btn-raised" data-toggle="collapse" data-target="#collapseExample">
+            絞り込み条件
+            <span class="badge" ng-if="$ctrl.refineBy()">あり</span>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <ul class="pagination" ng-if="$ctrl.userPage.pages>1">
+            <li ng-repeat="i in range($ctrl.userPage.pages)" ng-class="$ctrl.userPage.page===i?'active':''">
+                <a href="javascript:void(0)" ng-click="$ctrl.changePage(i)">{{i+1}}</a>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="collapse" id="collapseExample">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="form-group label-floating">
+                <label for="search-userName" class="control-label">ログインＩＤ</label>
+                <input type="text" id="search-userName" ng-model="$ctrl.searchText.userName" class="form-control">
+                <span class="help-block">部分一致で絞り込みます。</span>
+            </div>
+            <div class="form-group label-floating">
+                <label for="search-name" class="control-label">ユーザー名</label>
+                <input type="text" id="search-name" ng-model="$ctrl.searchText.name" class="form-control">
+                <span class="help-block">部分一致で絞り込みます。</span>
+            </div>
+            <div ng-if="$ctrl.hasUserRole()" class="form-group label-floating">
+                <label for="search-email" class="control-label">メールアドレス</label>
+                <input type="text" id="search-email" ng-model="$ctrl.searchText.email" class="form-control">
+                <span class="help-block">部分一致で絞り込みます。</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th class="col-md-2">ログインＩＤ</th>
+            <th class="col-md-2">ユーザー名</th>
+            <th class="col-md-2">有効期限</th>
+            <th class="col-md-3">メールアドレス</th>
+            <th class="col-md-1">削除状態</th>
+            <th class="col-md-1">&nbsp;</th>
+            <th class="col-md-1">&nbsp;</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr class="flush-animate mouse-link" ng-repeat="user in $ctrl.userList | filter:$ctrl.searchText">
+            <td class="col-md-2" ng-click="$ctrl.goEdit(user.id)">
+                <span ng-animate-ref="username-{{user.id}}" class="route-animate">{{user.userName}}</span>
+            </td>
+            <td class="col-md-2" ng-click="$ctrl.goEdit(user.id)">
+                <span class="route-animate" ng-animate-ref="name-{{user.id}}">{{user.name}}</span>
+            </td>
+            <td class="col-md-2" ng-click="$ctrl.goEdit(user.id)">
+                <span ng-if="$ctrl.hasUserRole()">{{user.expiration | date: "yyyy/MM/dd(EEE)"}}</span>
+                <span ng-if="!$ctrl.hasUserRole()">－</span>
+            </td>
+            <td class="col-md-3" ng-click="$ctrl.goEdit(user.id)">
+                <span ng-if="$ctrl.hasUserRole()" class="route-animate" ng-animate-ref="email-{{user.id}}">{{user.email}}</span>
+                <span ng-if="!$ctrl.hasUserRole()">－</span>
+            </td>
+            <td class="col-md-1" ng-click="$ctrl.goEdit(user.id)">
+                {{user.deleted | boolean: "削除" : "－"}}
+            </td>
+            <td class="col-md-1 btn" ng-click="$ctrl.goRole(user.id)">
+                <span ng-if="$ctrl.hasUserRole()">権限編集</span>
+                <span ng-if="!$ctrl.hasUserRole()" style="text-decoration:line-through">権限編集</span>
+            </td>
+            <td class="col-md-1 btn" ng-click="$ctrl.goMaker(user.id)">
+                <span ng-if="$ctrl.hasMakerRole()">メーカー編集</span>
+                <span ng-if="!$ctrl.hasMakerRole()" style="text-decoration:line-through">メーカー編集</span>
+            </td>
+        </tr>
+    </tbody>
+</table>

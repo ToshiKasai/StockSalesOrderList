@@ -1,0 +1,77 @@
+﻿@{
+    ViewBag.Title = "販売予算アップロード";
+}
+@section stylesheet{
+    @Styles.Render("~/Content/base")
+}
+@section script{
+    @*Scripts.Render("~/Scripts/base")*@
+    <script src="~/Scripts/jquery-3.1.1.js"></script>
+    <script src="~/Scripts/angular.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Scripts/material.js"></script>
+    <script src="~/Scripts/ripples.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+
+    <script src="~/Scripts/ng-file-upload-shim.js"></script>
+    <script src="~/Scripts/ng-file-upload.js"></script>
+    <script src="~/Scripts/views/uploadSalesPlan.js"></script>
+}
+
+<div class="container">
+    <ol class="breadcrumb">
+        <li>
+            <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+            @Html.ActionLink("MENU", "Index", "Home")
+        </li>
+        <li class="active">
+            @ViewBag.Title
+        </li>
+    </ol>
+</div>
+
+
+<div ng-app="myApp" ng-controller="UploadController as $ctrl">
+    <div class="panel panel-info">
+        <div class="panel-heading">予算データのアップロード注意</div>
+        <div class="panel-body">
+            <div>エクセルファイルをアップロードし予算データを更新しますが、対象となる書式は当システムよりダウンロードを行ったものとなります。</div>
+            <div>書式の異なるファイルをアップロードした際は想定しない値に変更される可能性がありますので、ご注意ください。</div>
+        </div>
+    </div>
+
+    <div ng-if="$ctrl.errorMessage!==null" class="alert alert-warning ng-cloak" ng-cloak>
+        {{$ctrl.errorMessage}}
+        <div>エラー発生時はアップロードしたデータはすべて反映しておりません。</div>
+    </div>
+    <div ng-if="$ctrl.successMessage!==null" class="alert alert-success ng-cloak" ng-cloak>
+        {{$ctrl.successMessage}}
+    </div>
+
+    <form name="form" novalidate ng-submit="$ctrl.check_up()">
+        <div class="form-group">
+            <div ngf-drop ngf-select ng-model="$ctrl.updata" name="file" id="file"
+                 ngf-max-size="20MB"
+                    ngf-accept="$ctrl.getTypes()"
+                 ngf-change="$ctrl.change($files, $file, $newFiles, $duplicateFiles, $invalidFiles, $event)" class="drop-box">
+                ここにドラッグもしくはクリックしてファイル選択
+            </div>
+        </div>
+        <div class="panel ng-cloak" ng-cloak>
+            <div class="panel-body">
+                <span>予算データファイル：</span>
+                <span ng-if="$ctrl.hasUploadData()">{{$ctrl.updata.name}}</span>
+                <span ng-if="!$ctrl.hasUploadData()" class="mouse-link"
+                    ngf-select ng-model="$ctrl.updata" ngf-max-size="20MB"
+                    ngf-accept="$ctrl.getTypes()"
+                    ngf-change="$ctrl.change($files, $file, $newFiles, $duplicateFiles, $invalidFiles, $event)">
+                    EXCELファイルを選択してください。
+                </span>
+            </div>
+        </div>
+        <button class="btn btn-primary" type="submit" ng-class="$ctrl.hasUploadData()?'btn-raised':'disabled'">
+            ファイルのアップロード
+        </button>
+    </form>
+</div>

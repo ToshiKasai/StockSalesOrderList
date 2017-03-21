@@ -1,0 +1,27 @@
+﻿@{
+    ViewBag.Title = Html.ResourceRaw("Messages, MainMenuButton01");
+}
+@section stylesheet{
+    @Styles.Render("~/Content/salesviews")
+}
+@section script{
+    @Scripts.Render("~/Scripts/salesviews")
+}
+
+<div class="view-container">
+    <div ui-view class="view">
+        <div class="container">
+            <ol class="breadcrumb">
+                <li>
+                    <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+                    @Html.ActionLink("MENU", "Menu", "Home", null, htmlAttributes: new { @target = "_self" })
+                </li>
+                <li class="active">
+                    @Html.Resource("Messages, SalesViewScreen01")
+                </li>
+            </ol>
+        </div>
+
+        画面とデータを準備中です。しばらくお待ちください。
+    </div>
+</div>

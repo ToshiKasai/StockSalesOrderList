@@ -1,0 +1,86 @@
+﻿<div class="container">
+    <ol class="breadcrumb">
+        <li>
+            <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+            @Html.ActionLink("MENU", "Menu", "Home", null, htmlAttributes: new { @target = "_self" })
+        </li>
+        <li>
+            <a ng-click="$ctrl.goMaker();">@Html.Resource("Messages, SalesViewScreen01")</a>
+        </li>
+        <li class="active">
+            @Html.Resource("Messages, SalesViewScreen02")
+        </li>
+    </ol>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="panel">
+            <div class="panel-heading">年度</div>
+            <div class="panel-body form-group panel-select-only">
+                <select ng-model="$ctrl.session.year" ng-options="value as (value) + '年' for value in $ctrl.yearList" class="form-control"></select>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="panel mouse-link" ng-click="$ctrl.goMaker()">
+            <div class="panel-heading">選択メーカー</div>
+            <div class="panel-body">
+                <span ng-animate-ref="code-{{$ctrl.session.makerId}}" class="route-animate">{{$ctrl.session.makerCode}}</span>
+                <span class="route-animate" ng-animate-ref="name-{{$ctrl.session.makerId}}">{{$ctrl.session.makerName}}</span>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="panel">
+            <div class="panel-heading">選択グループ</div>
+            <div class="panel-body">
+                &nbsp;
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="btn btn-default btn-raised" data-toggle="collapse" data-target="#collapseExample">
+    絞り込み条件
+    <span class="badge" ng-if="$ctrl.refineBy()">あり</span>
+</div>
+
+<div class="collapse" id="collapseExample">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="form-group label-floating">
+                <label for="search-code" class="control-label">コード</label>
+                <input type="text" id="search-code" ng-model="$ctrl.searchText.code" class="form-control">
+                <span class="help-block">部分一致で絞り込みます。</span>
+            </div>
+            <div class="form-group label-floating">
+                <label for="search-name" class="control-label">メーカー名</label>
+                <input type="text" id="search-name" ng-model="$ctrl.searchText.name" class="form-control">
+                <span class="help-block">部分一致で絞り込みます。</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th class="col-md-2">コード</th>
+            <th class="col-md-2">名称</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr class="flush-animate mouse-link"
+            ng-repeat="group in $ctrl.groupList | orderBy : ['code'] | filter:$ctrl.searchText"
+            ng-click="$ctrl.selectGroup(group)">
+            <td class="col-md-2">
+                <span ng-animate-ref="gcode-{{group.id}}" class="route-animate">{{group.code}}</span>
+            </td>
+            <td class="col-md-2">
+                <span class="route-animate" ng-animate-ref="gname-{{group.id}}">{{group.name}}</span>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<a href="javascript:void(0)" id="floatButton" class="btn btn-primary btn-fab" ng-click="$ctrl.scrollTop()"><i class="material-icons">&#xE5D8;</i></a>

@@ -1,0 +1,45 @@
+﻿<div class="container">
+    <ol class="breadcrumb">
+        <li>
+            <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+            @Html.ActionLink("MENU", "Menu", "Home", null, htmlAttributes: new { @target = "_self" })
+        </li>
+        <li>
+            <a ng-click="$ctrl.goMenu();">@Html.Resource("Messages, ManagedMenuButton00")</a>
+        </li>
+        <li>
+            <a ng-click="$ctrl.goList();">@Html.Resource("Messages, ManagedMenuButton03")</a>
+        </li>
+        <li>
+            @Html.Resource("Messages, ManagedGroupProduct") - <span class="route-animate" ng-animate-ref="code-{{$ctrl.id}}">{{$ctrl.groupEdit.code}}</span>
+        </li>
+    </ol>
+</div>
+
+<form name="userEdit" novalidate ng-submit="$ctrl.submit()">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h3 class="panel-title">編集対象グループ</h3>
+        </div>
+        <div class="panel-body">
+            <span class="route-animate" ng-animate-ref="name-{{$ctrl.id}}">{{$ctrl.groupEdit.name}}</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12"></div>
+    </div>
+    <div class="row">
+        <div class="form-group">
+            <ui-select ng-model="$ctrl.selectProduct" multiple>
+                <ui-select-match placeholder="商品を選択" allow-clear="true">
+                    {{$item.code}} : {{$item.name}}
+                </ui-select-match>
+                <ui-select-choices repeat="m in $ctrl.productList | filter : { makerModelId:$ctrl.groupEdit.makerModelId,enabled:true,deleted:false } | orderBy: ['code'] | filter: $select.search">
+                    {{m.code}} : {{m.name}}
+                </ui-select-choices>
+            </ui-select>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-raised btn-success">更新</button>
+    <a class="btn btn-raised btn-default" ng-click="$ctrl.goList()">キャンセル</a>
+</form>

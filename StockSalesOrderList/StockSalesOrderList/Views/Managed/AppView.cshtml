@@ -1,0 +1,84 @@
+﻿@model StockSalesOrderList.Models.AppLogViewModel
+
+@{
+    ViewBag.Title = "アプリケーションログ";
+}
+@section stylesheet{
+    @Styles.Render("~/Content/base")
+    <link rel="stylesheet" href="~/Content/themes/base/jquery-ui.css" />
+}
+@section script{
+    @*Scripts.Render("~/Scripts/base")*@
+    <script src="~/Scripts/jquery-3.1.1.js"></script>
+    <script src="~/Scripts/angular.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Scripts/material.js"></script>
+    <script src="~/Scripts/ripples.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+
+    <script src="~/Scripts/jquery-ui-1.12.1.js"></script>
+    <script src="~/Scripts/jquery-ui-i18n.js"></script>
+    <script src="~/Scripts/views/logView.js"></script>
+}
+
+<div class="container">
+    <ol class="breadcrumb">
+        <li>
+            <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+            @Html.ActionLink("MENU", "Index", "Home")
+        </li>
+        <li class="active">
+            @ViewBag.Title
+        </li>
+    </ol>
+</div>
+
+@using (Html.BeginForm())
+{
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group label-floating">
+                @Html.LabelFor(model => model.dateFrom, htmlAttributes: new { @class = "control-label label-floating" })
+                @Html.TextBoxFor(model => model.dateFrom, "{0:yyyy/MM/dd}", new { @class = "form-control", data_toggle = "datepicker" })
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group label-floating">
+                @Html.LabelFor(model => model.dateTo, htmlAttributes: new { @class = "control-label label-floating" })
+                @Html.TextBoxFor(model => model.dateTo, "{0:yyyy/MM/dd}", new { @class = "form-control", data_toggle = "datepicker" })
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group label-floating">
+                @Html.LabelFor(model => model.SigninCode, htmlAttributes: new { @class = "control-label label-floating" })
+                @Html.TextBoxFor(model => model.SigninCode, new { @class = "form-control" })
+            </div>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary btn-raised">条件で再表示</button>
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>@Html.LabelFor(model => model.logs.FirstOrDefault().ProcessingDate)</th>
+                <th>@Html.LabelFor(model => model.logs.FirstOrDefault().ProcessName)</th>
+                <th>@Html.LabelFor(model => model.logs.FirstOrDefault().UserModel.UserName)</th>
+                <th>@Html.LabelFor(model => model.logs.FirstOrDefault().UserModel.Name)</th>
+                <th>@Html.LabelFor(model => model.logs.FirstOrDefault().Message)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.logs)
+            {
+                <tr>
+                    <td>@item.ProcessingDate</td>
+                    <td>@item.ProcessName</td>
+                    <td>@item.UserModel.UserName</td>
+                    <td>@item.UserModel.Name</td>
+                    <td>@item.Message</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

@@ -1,0 +1,109 @@
+﻿<div class="container">
+    <ol class="breadcrumb">
+        <li>
+            <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+            @Html.ActionLink("MENU", "Menu", "Home", null, htmlAttributes: new { @target = "_self" })
+        </li>
+        <li>
+            <a ng-click="$ctrl.goMenu();">@Html.Resource("Messages, ManagedMenuButton00")</a>
+        </li>
+        <li>
+            <a ng-click="$ctrl.goList();">@Html.Resource("Messages, ManagedMenuButton03")</a>
+        </li>
+        <li>
+            @Html.Resource("Messages, ManagedGroupEdit") - <span class="route-animate" ng-animate-ref="code-{{$ctrl.id}}">{{$ctrl.groupEdit.code}}</span>
+        </li>
+    </ol>
+</div>
+
+<form name="groupEdit" novalidate ng-submit="$ctrl.submit()">
+    <div class="alert alert-danger err-animate" ng-if="$ctrl.errShow">
+        <span class="col-md-1">
+            <i class="material-icons md-24">error</i>
+        </span>
+        {{$ctrl.errMessage}}
+    </div>
+
+    <div class="form-group" style="margin-top:0px" ng-class="{'has-error': groupEdit.code.$invalid}">
+        <label for="userName" class="control-label">グループコード</label>
+        <input type="text" id="code" name="code" class="form-control route-animate"
+               ng-model="$ctrl.groupEdit.code" ng-required="true" ng-minlength="1" ng-maxlength="128"
+               ng-animate-ref="code-{{$ctrl.id}}" />
+        <p ng-messages="groupEdit.code.$error" ng-if="groupEdit.code.$dirty || groupEdit.$submitted">
+            <span ng-message="required">入力は必須です。</span>
+            <span ng-message="minlength || maxlength">１２８文字以内で入力してください。</span>
+        </p>
+    </div>
+    <div class="form-group">
+        <label for="name" class="control-label">グループ名</label>
+        <input type="text" id="name" name="name" class="form-control" ng-model="$ctrl.groupEdit.name" ng-required="true" />
+        <p ng-messages="groupEdit.name.$error" ng-if="groupEdit.name.$dirty || groupEdit.$submitted">
+            <span ng-message="required">入力は必須です。</span>
+        </p>
+    </div>
+    <div class="form-group">
+        <label for="maker" class="control-label">メーカー</label>
+        <ui-select id="maker" ng-model="$ctrl.selectMaker" on-select="$ctrl.makerChange($item,$model)">
+            <ui-select-match placeholder="メーカーを選択" allow-clear="false">
+                {{$select.selected.code}} : {{$select.selected.name}}
+            </ui-select-match>
+            <ui-select-choices repeat="m in $ctrl.makerList | orderBy: ['code'] | filter : { deleted: false, enabled: true } | filter: $select.search">
+                {{m.code}} : {{m.name}}
+            </ui-select-choices>
+        </ui-select>
+    </div>
+    <div class="form-group">
+        <label for="container" class="control-label">基本コンテナ</label>
+        <ui-select id="container" ng-model="$ctrl.selectContainer" on-select="$ctrl.containerChange($item,$model)">
+            <ui-select-match placeholder="コンテナを選択" allow-clear="false">
+                {{$select.selected.name}}
+            </ui-select-match>
+            <ui-select-choices repeat="c in $ctrl.containerList | orderBy: ['code'] | filter : { deleted: false } | filter: $select.search">
+                {{c.name}}
+            </ui-select-choices>
+        </ui-select>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label">管理方法</label>
+        <div class="radio">
+            <label>
+                <input type="radio" name="isCapacity" ng-model="$ctrl.isCapacity" value="cap" ng-change="$ctrl.groupEdit.isCapacity=true">容積管理
+            </label>
+        </div>
+        <div class="radio">
+            <label>
+                <input type="radio" name="isCapacity" ng-model="$ctrl.isCapacity" value="pal" ng-change="$ctrl.groupEdit.isCapacity=false">パレット管理
+            </label>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="cap20dry" class="control-label">２０ｆｔドライのコンテナ入数</label>
+        <input type="number" id="cap20dry" class="form-control" ng-model="$ctrl.groupEdit.containerCapacityBt20Dry" />
+    </div>
+    <div class="form-group">
+        <label for="cap40dry" class="control-label">４０ｆｔドライのコンテナ入数</label>
+        <input type="number" id="cap40dry" class="form-control" ng-model="$ctrl.groupEdit.containerCapacityBt40Dry" />
+    </div>
+
+    <div class="form-group">
+        <label for="cap20ref" class="control-label">２０ｆｔリーファのコンテナ入数</label>
+        <input type="number" id="cap20ref" class="form-control" ng-model="$ctrl.groupEdit.containerCapacityBt20Reefer" />
+    </div>
+    <div class="form-group">
+        <label for="cap40ref" class="control-label">４０ｆｔリーファのコンテナ入数</label>
+        <input type="number" id="cap40ref" class="form-control" ng-model="$ctrl.groupEdit.containerCapacityBt40Reefer" />
+    </div>
+
+    <div class="togglebutton">
+        <label>
+            削除
+            <input type="checkbox" id="deleted" name="deleted" ng-model="$ctrl.groupEdit.deleted">
+        </label>
+    </div>
+    <div class="row">
+        <button type="submit" class="btn btn-raised btn-success">更新</button>
+        <a class="btn btn-raised btn-default" ng-click="$ctrl.goList()">キャンセル</a>
+    </div>
+</form>

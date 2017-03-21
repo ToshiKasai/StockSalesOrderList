@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewBag.Title = "ようこそ";
+}
+
+@section stylesheet{
+    @Styles.Render("~/Content/base")
+}
+@section script{
+    @Scripts.Render("~/Scripts/base")
+}
+
+<div class="container">
+    <ol class="breadcrumb">
+        <li class="active">
+            <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+            Home
+        </li>
+    </ol>
+</div>
+
+<h4>
+    @Html.Resource("Messages, ApplicationName")へようこそ。
+</h4>
+
+<div>
+   サインインを行い、システムの利用を開始してください。
+</div>
+<div>
+    アカウントがない場合は、ワークフローで業務アカウント申請を行ってください。
+</div>

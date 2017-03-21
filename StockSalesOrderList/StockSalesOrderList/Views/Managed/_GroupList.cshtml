@@ -1,0 +1,89 @@
+﻿<div class="container">
+    <ol class="breadcrumb">
+        <li>
+            <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+            @Html.ActionLink("MENU", "Menu", "Home", null, htmlAttributes: new { @target = "_self" })
+        </li>
+        <li>
+            <a ng-click="$ctrl.goMenu();">@Html.Resource("Messages, ManagedMenuButton00")</a>
+        </li>
+        <li class="active">
+            <span class="route-animate" ng-animate-ref="s-grouplist">@Html.Resource("Messages, ManagedMenuButton03")</span>
+        </li>
+    </ol>
+</div>
+
+<div class="row">
+    <div class="col-md-2">
+        <a class="btn btn-raised btn-primary" ng-click="$ctrl.goNew()">新規登録</a>
+    </div>
+    <div class="col-md-2">
+        <div class="btn btn-default btn-raised" data-toggle="collapse" data-target="#collapseExample">
+            絞り込み条件
+            <span class="badge" ng-if="$ctrl.refineBy()">あり</span>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <ul class="pagination" ng-if="$ctrl.groupPage.pages>1">
+            <li ng-if="$ctrl.groupPage.page>=1"><a href="javascript:void(0)" ng-click="$ctrl.jumpPage(-10)">«</a></li>
+            <li ng-if="$ctrl.groupPage.page<1" class="disabled"><a href="javascript:void(0)">«</a></li>
+            <li ng-repeat="i in $ctrl.displayPage()" ng-class="$ctrl.groupPage.page===i?'active':''">
+                <a href="javascript:void(0)" ng-click="$ctrl.changePage(i)">{{i+1}}</a>
+            </li>
+            <li ng-if="$ctrl.groupPage.page<($ctrl.groupPage.pages-1)"><a href="javascript:void(0)" ng-click="$ctrl.jumpPage(10)">»</a></li>
+            <li ng-if="$ctrl.groupPage.page>=($ctrl.groupPage.pages-1)" class="disabled"><a href="javascript:void(0)">»</a></li>
+        </ul>
+    </div>
+</div>
+<div class="collapse" id="collapseExample">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="form-group label-floating">
+                <label for="search-userName" class="control-label">グループコード</label>
+                <input type="text" id="search-userName" ng-model="$ctrl.searchText.code" class="form-control">
+                <span class="help-block">部分一致で絞り込みます。</span>
+            </div>
+            <div class="form-group label-floating">
+                <label for="search-name" class="control-label">グループ名</label>
+                <input type="text" id="search-name" ng-model="$ctrl.searchText.name" class="form-control">
+                <span class="help-block">部分一致で絞り込みます。</span>
+            </div>
+            <div class="form-group label-floating">
+                <label for="search-email" class="control-label">メーカーコード</label>
+                <input type="text" id="search-email" ng-model="$ctrl.searchText.makerCode" class="form-control">
+                <span class="help-block">部分一致で絞り込みます。</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th class="col-md-2">コード</th>
+            <th class="col-md-4">グループ名</th>
+            <th class="col-md-4">メーカー</th>
+            <th class="col-md-1">削除状態</th>
+            <th class="col-md-1">&nbsp;</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr class="flush-animate mouse-link" ng-repeat="group in $ctrl.groupList | orderBy: ['code'] | filter:$ctrl.searchText">
+            <td class="col-md-2 username" ng-click="$ctrl.goEdit(group.id)">
+                <span ng-animate-ref="code-{{group.id}}" class="route-animate">{{group.code}}</span>
+            </td>
+            <td class="col-md-4" ng-click="$ctrl.goEdit(group.id)">
+                <span class="route-animate" ng-animate-ref="name-{{group.id}}">{{group.name}}</span>
+            </td>
+            <td class="col-md-4" ng-click="$ctrl.goEdit(group.id)">
+                <span class="route-animate" ng-animate-ref="maker-{{group.id}}">{{group.makerCode}} : {{group.makerName}}</span>
+            </td>
+            <td class="col-md-1" ng-click="$ctrl.goEdit(group.id)">
+                {{group.deleted | boolean: "削除" : "－"}}
+            </td>
+            <td class="col-md-1 btn" ng-click="$ctrl.goProduct(group.id, group.makerModelId)">
+                商品編集
+            </td>
+        </tr>
+    </tbody>
+</table>

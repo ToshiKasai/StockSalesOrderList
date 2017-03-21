@@ -1,0 +1,84 @@
+﻿<div class="container">
+    <ol class="breadcrumb">
+        <li>
+            <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+            @Html.ActionLink("MENU", "Menu", "Home", null, htmlAttributes: new { @target = "_self" })
+        </li>
+        <li>
+            <a ng-click="$ctrl.goMenu();">@Html.Resource("Messages, ManagedMenuButton00")</a>
+        </li>
+        <li class="active">
+            <span class="route-animate" ng-animate-ref="s-productlist">@Html.Resource("Messages, ManagedMenuButton04")</span>
+        </li>
+    </ol>
+</div>
+
+<div class="row">
+    <div class="col-md-2">
+        <div class="btn btn-default btn-raised" data-toggle="collapse" data-target="#collapseExample">
+            絞り込み条件
+            <span class="badge" ng-if="$ctrl.refineBy()">あり</span>
+        </div>
+    </div>
+    <div class="col-md-10">
+        <ul class="pagination" ng-if="$ctrl.productPage.pages>1">
+            <li ng-if="$ctrl.productPage.page>=1"><a href="javascript:void(0)" ng-click="$ctrl.jumpPage(-10)">«</a></li>
+            <li ng-repeat="i in $ctrl.displayPage()" ng-class="$ctrl.productPage.page===i?'active':''">
+                <a href="javascript:void(0)" ng-click="$ctrl.changePage(i)">{{i+1}}</a>
+            </li>
+            <li ng-if="$ctrl.productPage.page<($ctrl.productPage.pages-1)"><a href="javascript:void(0)" ng-click="$ctrl.jumpPage(10)">»</a></li>
+        </ul>
+    </div>
+</div>
+<div class="collapse" id="collapseExample">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="form-group label-floating">
+                <label for="search-userName" class="control-label">商品コード</label>
+                <input type="text" id="search-userName" ng-model="$ctrl.searchText.code" class="form-control">
+                <span class="help-block">部分一致で絞り込みます。</span>
+            </div>
+            <div class="form-group label-floating">
+                <label for="search-name" class="control-label">商品名</label>
+                <input type="text" id="search-name" ng-model="$ctrl.searchText.name" class="form-control">
+                <span class="help-block">部分一致で絞り込みます。</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th class="col-md-2">コード</th>
+            <th class="col-md-4">商品名</th>
+            <th class="col-md-4">メーカー</th>
+            <th class="col-md-1">使用許可</th>
+            <th class="col-md-1">削除状態</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr class="flush-animate mouse-link"
+             ng-repeat="product in $ctrl.productList | orderBy: ['code'] | filter:$ctrl.searchText"
+             ng-click="$ctrl.goEdit(product.id)">
+            <td class="col-md-2 username">
+                <span ng-animate-ref="code-{{product.id}}" class="route-animate">
+                    {{product.code}}
+                </span>
+            </td>
+            <td class="col-md-4">
+                <span class="route-animate" ng-animate-ref="name-{{product.id}}">{{product.name}}</span>
+            </td>
+            <td class="col-md-4">
+                <span class="route-animate" ng-animate-ref="maker-{{product.id}}">{{product.makerCode}} : {{product.makerName}}</span>
+            </td>
+            <td class="col-md-1">
+                {{product.enabled | boolean: "許可" : "不可"}}
+            </td>
+            <td class="col-md-1">
+                {{product.deleted | boolean: "削除" : "－"}}
+            </td>
+        </tr>
+    </tbody>
+</table>
+

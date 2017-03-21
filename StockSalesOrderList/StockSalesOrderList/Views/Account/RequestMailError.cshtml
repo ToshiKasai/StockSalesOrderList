@@ -1,0 +1,27 @@
+﻿
+@{
+    ViewBag.Title = "メール処理エラー";
+}
+
+@section stylesheet{
+    @Styles.Render("~/Content/base")
+}
+@section script{
+    @Scripts.Render("~/Scripts/base")
+}
+
+<div class="container">
+    <ol class="breadcrumb">
+        <li>
+            <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+            @Html.ActionLink("Home", "Index", "Home")
+        </li>
+        <li class="active">
+            @ViewBag.Title
+        </li>
+    </ol>
+</div>
+
+<div class="alert alert-warning">
+    <h4>リクエストを受けた処理が正常に行えません。</h4>ＵＲＬの誤りや有効期限切れなどを確認してください。
+</div>

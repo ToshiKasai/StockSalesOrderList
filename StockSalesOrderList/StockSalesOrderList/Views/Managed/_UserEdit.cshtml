@@ -1,0 +1,93 @@
+﻿<div class="container">
+    <ol class="breadcrumb">
+        <li>
+            <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+            @Html.ActionLink("MENU", "Menu", "Home", null, htmlAttributes: new { @target = "_self" })
+        </li>
+        <li>
+            <a ng-click="$ctrl.goMenu();">@Html.Resource("Messages, ManagedMenuButton00")</a>
+        </li>
+        <li>
+            <a ng-click="$ctrl.goList();">@Html.Resource("Messages, ManagedMenuButton01")</a>
+        </li>
+        <li>
+            @Html.Resource("Messages, ManagedUserEdit")
+        </li>
+    </ol>
+</div>
+
+<form name="userEdit" novalidate ng-submit="$ctrl.submit()">
+    <div class="alert alert-danger err-animate" ng-if="$ctrl.errShow">
+        <span class="col-md-1">
+            <i class="material-icons md-24">error</i>
+        </span>
+        {{$ctrl.errMessage}}
+    </div>
+
+    <div class="form-group" style="margin-top:0px" ng-class="{'has-error': userEdit.userName.$invalid}">
+        <label for="userName" class="control-label">ログインＩＤ</label>
+        <input type="text" id="userName" name="userName" class="form-control route-animate"
+               ng-model="$ctrl.userEdit.userName" ng-required="true" ng-minlength="6" ng-maxlength="256"
+               ng-animate-ref="username-{{$ctrl.id}}" />
+        <p ng-messages="userEdit.userName.$error" ng-if="userEdit.userName.$dirty || userEdit.$submitted">
+            <span ng-message="required">入力は必須です。</span>
+            <span ng-message="minlength || maxlength">６～２５６文字で入力してください。</span>
+        </p>
+    </div>
+    <div class="form-group">
+        <label for="password" class="control-label">パスワード</label>
+        <input type="password" id="password" name="password" class="form-control" ng-model="$ctrl.userEdit.newPassword" />
+    </div>
+    <div class="form-group">
+        <label for="name" class="control-label">ユーザー名</label>
+        <input type="text" id="name" name="name" class="form-control" ng-model="$ctrl.userEdit.name" />
+    </div>
+    <div class="form-group">
+        <label for="newExpiration" class="control-label">有効期限の変更</label>
+        <input type="date" id="newExpiration" name="newExpiration" class="form-control" ng-model="$ctrl.userEdit.newExpiration" />
+    </div>
+    <div class="form-group">
+        <label for="passwordSkipCnt" class="control-label">スキップ回数</label>
+        <input type="number" id="passwordSkipCnt" name="passwordSkipCnt" class="form-control" ng-model="$ctrl.userEdit.passwordSkipCnt" />
+    </div>
+    <div class="form-group">
+        <label for="email" class="control-label">メールアドレス</label>
+        <input type="email" id="email" name="email" class="form-control" ng-model="$ctrl.userEdit.email" />
+    </div>
+    <div class="togglebutton">
+        <label>
+            メール認証
+            <input type="checkbox" id="emailConfirmed" name="emailConfirmed" ng-model="$ctrl.userEdit.emailConfirmed">
+        </label>
+    </div>
+    <div class="form-group">
+        <label for="lockoutEndData" class="control-label">ロックアウト日時</label>
+        <input type="date" id="lockoutEndData" name="lockoutEndData" class="form-control" ng-model="$ctrl.userEdit.lockoutEndData" />
+    </div>
+    <div class="togglebutton">
+        <label>
+            ロックアウト対象
+            <input type="checkbox" id="lockoutEnabled" name="lockoutEnabled" ng-model="$ctrl.userEdit.lockoutEnabled">
+        </label>
+    </div>
+    <div class="form-group">
+        <label for="accessFailedCount" class="control-label">失敗回数</label>
+        <input type="number" id="accessFailedCount" name="accessFailedCount" class="form-control" ng-model="$ctrl.userEdit.accessFailedCount" />
+    </div>
+    <div class="togglebutton">
+        <label>
+            使用許可
+            <input type="checkbox" id="enabled" name="enabled" ng-model="$ctrl.userEdit.enabled">
+        </label>
+    </div>
+    <div class="togglebutton">
+        <label>
+            削除
+            <input type="checkbox" id="deleted" name="deleted" ng-model="$ctrl.userEdit.deleted">
+        </label>
+    </div>
+    <div class="row">
+        <button type="submit" class="btn btn-raised btn-success">更新</button>
+        <a class="btn btn-raised btn-default" ng-click="$ctrl.goList()">キャンセル</a>
+    </div>
+</form>

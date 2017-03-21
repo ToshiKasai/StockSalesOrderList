@@ -1,0 +1,57 @@
+﻿@model StockSalesOrderList.Models.SignInViewModel
+
+@{
+    ViewBag.Title = "サインイン";
+}
+@section stylesheet{
+    @Styles.Render("~/Content/base")
+}
+@section script{
+    @Scripts.Render("~/Scripts/base")
+}
+
+<div class="container">
+    <ol class="breadcrumb">
+        <li>
+            <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+            @Html.ActionLink("Home", "Index", "Home")
+        </li>
+        <li class="active">
+            @ViewBag.Title
+        </li>
+    </ol>
+</div>
+
+<div class="alert alert-info">
+    @Html.GetModelPropertyName(model => model.SinginId)
+    と
+    @Html.GetModelPropertyName(model => model.Password)
+    を入力し、サインインを行ってください。
+</div>
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(false, "", htmlAttributes: new { @class = "text-warning" })
+
+    @Html.AntiForgeryToken()
+    <div class="@Html.ValidateLabelClass(model => model.SinginId)">
+        @Html.LabelFor(model => model.SinginId, htmlAttributes: new { @class = "control-label label-floating" })
+        @Html.TextBoxFor(model => model.SinginId, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.SinginId, "", htmlAttributes: new { @class = "text-warning" })
+        <span class="help-block">@Html.GetModelPropertyName(model => model.SinginId)を入力してください。</span>
+    </div>
+    <div class="@Html.ValidateLabelClass(model => model.Password)">
+        @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label label-floating" })
+        @Html.PasswordFor(model => model.Password, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Password, "", htmlAttributes: new { @class = "text-warning" })
+        <span class="help-block">@Html.GetModelPropertyName(model => model.Password)を入力してください。</span>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="サインイン" class="btn btn-raised btn-success" />
+    </div>
+}
+<hr />
+<div class="row">
+    @Html.ActionLink("メールアドレスの確認", "ConfirmEmail", "", htmlAttributes: new { @class = "btn btn-raised btn-default" })
+    @Html.ActionLink("パスワードリセット", "ResetPassword", "", htmlAttributes: new { @class = "btn btn-raised btn-default" })
+</div>
