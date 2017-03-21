@@ -1,4 +1,3 @@
-/// <reference path="../typings/tsd.d.ts" />
 var salesView;
 (function (salesView) {
     "use strict";
@@ -37,7 +36,7 @@ var salesView;
         };
         ChartClass.prototype.chartSet = function () {
             this.labels = ["10月", "11月", "12月", "1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月"];
-            this.series = ["在庫予測", "在庫数", "販売予定", "販売実績", "前年実績", "入荷予定", "入荷実績"]; // , "予実比", "前年比"];
+            this.series = ["在庫予測", "在庫数", "販売予定", "販売実績", "前年実績", "入荷予定", "入荷実績"];
             this.datasetOverride = [
                 {
                     yAxisID: "y-axis-1", fill: true, lineTension: 0,
@@ -129,7 +128,6 @@ var salesView;
             maxDate += "/9/30";
             var hol = new holiday.Holiday();
             var holidays = hol.getHoliday(2017);
-            // console.info(holidays);
             $.datepicker.setDefaults($.datepicker.regional["ja"]);
             $("[data-toggle='datepicker']").datepicker({
                 minDate: minDate,
@@ -142,7 +140,6 @@ var salesView;
                 beforeShowDay: function (day) {
                     var result;
                     var holiday = holidays[$.format.date(day, "yyyy/MM/dd")];
-                    // 祝日・非営業日定義に存在するか？
                     if (holiday) {
                         result = [true, "date-holiday" + holiday.type, holiday.title];
                     }
@@ -190,7 +187,6 @@ var salesView;
             this.state.go(salesViewConfig.StateSales);
         };
         ProductController.prototype.scrollTop = function () {
-            // angular.element("body").animate({ scrollTop: 0 }, "fast");
             $("html, body").animate({ scrollTop: 0 }, 500);
         };
         ProductController.prototype.toggleOffice = function () {
@@ -209,8 +205,6 @@ var salesView;
             this.modelDateEdit = tmp.getFullYear().toString() + "/" + (tmp.getMonth() + 1).toString() + "/" + tmp.getDate().toString();
             this.modelQtyEdit = 0;
             this.modelCommentEdit = null;
-            // this.modelDateEdit = $("[data-toggle='datepicker']").datepicker('formatDate', tmp);
-            // $("[data-toggle='datepicker']").datepicker("setDate", this.modelDateEdit);
             this.trendEdit = model;
         };
         ProductController.prototype.setTrendEdit = function (id) {

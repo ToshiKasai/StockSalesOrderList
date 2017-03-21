@@ -1,4 +1,3 @@
-/// <reference path="../typings/tsd.d.ts" />
 var salesViewConfig;
 (function (salesViewConfig) {
     "use strict";
@@ -14,7 +13,7 @@ var salesViewConfig;
         "ngSanitize",
         "angular-loading-bar",
         "chart.js",
-        salesViewConfig.ServiceAppName // 管理機能用サービス
+        salesViewConfig.ServiceAppName
     ];
     salesViewConfig.MakerController = "MakerController";
     salesViewConfig.GroupController = "GroupController";

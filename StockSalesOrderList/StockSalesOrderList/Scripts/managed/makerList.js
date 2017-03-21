@@ -1,4 +1,3 @@
-/// <reference path="../typings/tsd.d.ts" />
 var managed;
 (function (managed) {
     "use strict";
@@ -42,7 +41,6 @@ var managed;
                         _this.makerList[i] = data;
                         _this.makerList[i].enabled = _this.makerList[i].enabled ? false : true;
                         _this.makerList[i].put().then(function (data) {
-                            // this.resources.toastr.info("更新しました。");
                         }, function (res) {
                             _this.resources.toastr.error("申し訳ありませんが切り替えに失敗しました。");
                             _this.makerList[i].enabled = _this.makerList[i].enabled ? false : true;

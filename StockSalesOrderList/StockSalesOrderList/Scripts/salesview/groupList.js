@@ -1,4 +1,3 @@
-/// <reference path="../typings/tsd.d.ts" />
 var salesView;
 (function (salesView) {
     "use strict";
@@ -56,7 +55,6 @@ var salesView;
         };
         GroupController.prototype.scrollTop = function () {
             $("html, body").animate({ scrollTop: 0 }, 500);
-            // angular.element("body").animate({ scrollTop: 0 }, "fast");
         };
         GroupController.$inject = [
             salesViewConfig.ServiceName,

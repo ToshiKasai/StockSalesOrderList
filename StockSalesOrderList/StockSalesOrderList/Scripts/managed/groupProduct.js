@@ -1,4 +1,3 @@
-/// <reference path="../typings/tsd.d.ts" />
 var managed;
 (function (managed) {
     "use strict";
@@ -17,9 +16,6 @@ var managed;
                 var j = 0;
                 if (data.length > 0) {
                     for (var i = 0; i < _this.productList.length; i++) {
-                        //if (this.productList[i].makerModelId !== this.groupEdit.id) {
-                        //    continue;
-                        //}
                         if (_this.productList[i].id === data[j].id) {
                             _this.selectProduct.push(_this.productList[i]);
                             j++;

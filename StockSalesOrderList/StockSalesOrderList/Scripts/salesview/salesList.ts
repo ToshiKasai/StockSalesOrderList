@@ -145,6 +145,19 @@ module salesView {
             if (inv < sl.salesList.length) {
                 sl.salesList[inv].invoice_plan = sl.salesList[index].order_plan;
             }
+            this.resources.recalculationSalesViewDataOffline(sl);
+        }
+
+        inputInvoice(index: number, sl: apiModel.ISalesViewData): void {
+            this.resources.recalculationSalesViewDataOffline(sl);
+        }
+
+        inputInvoiceReming(index: number, sl: apiModel.ISalesViewData): void {
+            this.resources.recalculationSalesViewDataOffline(sl);
+        }
+
+        inputSalesPlan(index: number, sl: apiModel.ISalesViewData): void {
+            this.resources.recalculationSalesViewDataOffline(sl);
         }
 
         toggleSidemenu(): void {

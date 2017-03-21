@@ -340,6 +340,18 @@ module salesView {
             return this.getSalesDataByIdAsCache(id);
         }
 
+        // 
+        recalculationSalesViewDataOffline(work: apiModel.ISalesViewData): void {
+            // インボイス残を計算
+            for (let i: number = 0; i < 13; i++) {
+                if (i >= 1) {
+                    work.salesList[i].invoice_zan = (work.salesList[i - 1].invoice_zan - work.salesList[i - 1].invoice_adjust) + work.salesList[i].invoice_plan - work.salesList[i].invoice_actual;
+                }
+            }
+
+            this.recalculationSalesViewData(work);
+        }
+
         // 在庫予定や比率の算出（単一）
         recalculationSalesViewData(work: apiModel.ISalesViewData): void {
             let now: Date = new Date();

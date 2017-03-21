@@ -1,4 +1,3 @@
-/// <reference path="../typings/tsd.d.ts" />
 var uploadSalesPlan;
 (function (uploadSalesPlan) {
     "use strict";

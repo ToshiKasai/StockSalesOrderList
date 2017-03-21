@@ -1,4 +1,3 @@
-/// <reference path="../typings/tsd.d.ts" />
 var managed;
 (function (managed) {
     "use strict";

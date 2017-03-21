@@ -1,4 +1,3 @@
-/// <reference path="../typings/tsd.d.ts" />
 var logView;
 (function (logView) {
     "use strict";

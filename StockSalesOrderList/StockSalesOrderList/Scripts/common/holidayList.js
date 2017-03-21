@@ -1,4 +1,3 @@
-/// <reference path="../typings/tsd.d.ts" />
 var holiday;
 (function (holiday) {
     "use strict";
@@ -8,7 +7,7 @@ var holiday;
                 strFurikae: "振替休日",
                 dateFurikae: new Date(1973, 3, 12),
                 strKokumin: "国民の休日",
-                dateKokumin: new Date(1985, 11, 27) // 国民の休日の施行日
+                dateKokumin: new Date(1985, 11, 27)
             };
             this.fixed_holidays = [
                 [2016, 12, 29, "会社休日"],
@@ -78,7 +77,6 @@ var holiday;
         }
         Holiday.prototype.pad = function (val) {
             return (new Array(2).join("0") + val).slice(-2);
-            // return ("0" + val).slice(-2);
         };
         Holiday.prototype.format = function (date) {
             return date.getFullYear() + "/" + this.pad(date.getMonth() + 1) + "/" + this.pad(date.getDate());
@@ -244,12 +242,7 @@ var holiday;
             var i, len;
             for (i = 0, len = this.holidays.length; i < len; i++) {
                 if (this.holidays[i][0] <= year && year <= this.holidays[i][1]) {
-                    this.setHoliday(date, // Dateオブジェクト
-                    year, // 年
-                    this.holidays[i][2] - 1, // 月（日付のセット用に「-1」）
-                    this.holidays[i][3], // 日 
-                    this.holidays[i][4] // 祝祭日名
-                    );
+                    this.setHoliday(date, year, this.holidays[i][2] - 1, this.holidays[i][3], this.holidays[i][4]);
                 }
             }
             var keys = Object.keys(this.holidayList).sort();

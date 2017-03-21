@@ -143,8 +143,8 @@
                 <th class="title-mid">予定</th>
                 @for (var i = loop_start; i < loop_end; i++)
                 {
-                    <td class="numbers form-group" edit-tag-number ng-if="sl.product.isSoldWeight" ng-model="sl.salesList[@i].invoice_plan" min="0" step="0.001" fixed="3"></td>
-                    <td class="numbers form-group" edit-tag-number ng-if="!sl.product.isSoldWeight" ng-model="sl.salesList[@i].invoice_plan" min="0" step="1" fixed="0"></td>
+                    <td class="numbers form-group" edit-tag-number ng-if="sl.product.isSoldWeight" ng-model="sl.salesList[@i].invoice_plan" min="0" step="0.001" fixed="3" callback="$ctrl.inputInvoice(@i, sl);"></td>
+                    <td class="numbers form-group" edit-tag-number ng-if="!sl.product.isSoldWeight" ng-model="sl.salesList[@i].invoice_plan" min="0" step="1" fixed="0" callback="$ctrl.inputInvoice(@i, sl);"></td>
                 }
             </tr>
             <tr>
@@ -180,8 +180,8 @@
                 <th class="title-mid info">調整</th>
                 @for (var i = loop_start; i < loop_end; i++)
                 {
-                    <td class="numbers info form-group" edit-tag-number ng-if="sl.product.isSoldWeight" ng-model="sl.salesList[@i].invoice_adjust" min="0" step="0.001" fixed="3"></td>
-                    <td class="numbers info form-group" edit-tag-number ng-if="!sl.product.isSoldWeight" ng-model="sl.salesList[@i].invoice_adjust" min="0" step="1" fixed="0"></td>
+                    <td class="numbers info form-group" edit-tag-number ng-if="sl.product.isSoldWeight" ng-model="sl.salesList[@i].invoice_adjust" min="0" step="0.001" fixed="3" callback="$ctrl.inputInvoiceReming(@i, sl);"></td>
+                    <td class="numbers info form-group" edit-tag-number ng-if="!sl.product.isSoldWeight" ng-model="sl.salesList[@i].invoice_adjust" min="0" step="1" fixed="0" callback="$ctrl.inputInvoiceReming(@i, sl);"></td>
                 }
             </tr>
 
@@ -198,8 +198,8 @@
                 <th class="title-mid">予定</th>
                 @for (var i = loop_start; i < loop_end; i++)
                 {
-                    <td class="numbers form-group" edit-tag-number ng-if="sl.product.isSoldWeight" ng-model="sl.salesList[@i].sales_plan" min="0" step="0.001" fixed="3"></td>
-                    <td class="numbers form-group" edit-tag-number ng-if="!sl.product.isSoldWeight" ng-model="sl.salesList[@i].sales_plan" min="0" step="1" fixed="0"></td>
+                    <td class="numbers form-group" edit-tag-number ng-if="sl.product.isSoldWeight" ng-model="sl.salesList[@i].sales_plan" min="0" step="0.001" fixed="3" callback="$ctrl.inputSalesPlan(@i, sl);"></td>
+                    <td class="numbers form-group" edit-tag-number ng-if="!sl.product.isSoldWeight" ng-model="sl.salesList[@i].sales_plan" min="0" step="1" fixed="0" callback="$ctrl.inputSalesPlan(@i, sl);"></td>
                 }
             </tr>
             <tr>

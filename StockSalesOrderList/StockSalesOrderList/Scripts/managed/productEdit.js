@@ -1,4 +1,3 @@
-/// <reference path="../typings/tsd.d.ts" />
 var managed;
 (function (managed) {
     "use strict";
@@ -10,7 +9,6 @@ var managed;
             this.errShow = false;
             this.errMessage = null;
             this.id = $stateParams.param;
-            // テスト用初期化
             this.productData = {
                 id: this.id,
                 code: "TEST001", name: "検証中", quantity: 1, makerModelId: "1", makerCode: "CODE001", makerName: "メーカー",

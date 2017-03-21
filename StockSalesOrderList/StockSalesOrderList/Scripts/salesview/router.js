@@ -1,4 +1,3 @@
-/// <reference path="../typings/tsd.d.ts" />
 var salesView;
 (function (salesView) {
     "use strict";
@@ -128,11 +127,8 @@ var salesView;
                     else {
                         num = _this.floatFormat(parseFloat(value), fixedNum);
                     }
-                    // return Number(num).toString().replace(/(\d)(?=(?:\d{3}){2,}(?:\.|$))|(\d)(\d{3}(?:\.\d*)?$)/g, '$1$2,$3');
                     return num.toFixed(fixedNum);
-                    // return num.toFixed(fixedNum).replace(/(\d)(?=(?:\d{3}){2,}(?:\.|$))|(\d)(\d{3}(?:\.\d*)?$)/g, '$1$2,$3');
                 });
-                // element.on("dblclick", function (): void {
                 element.on("click", function () {
                     var min = "min";
                     var step = "step";
