@@ -111,6 +111,8 @@ var salesView;
             this.showOffice = false;
             this.officeMax = 5;
             this.currentData = null;
+            this.currentActualQuantity = 0;
+            this.currentLogicalQuantity = 0;
             this.trendEdit = null;
             this.trendList = [];
             this.modelDateEdit = null;
@@ -170,6 +172,14 @@ var salesView;
         };
         ProductController.prototype.setCurrentData = function (target) {
             target.currentData = target.resources.currentData;
+            target.currentActualQuantity = 0;
+            target.currentLogicalQuantity = 0;
+            var i = 0;
+            var max = target.currentData.stocks.length;
+            for (i = 0; i < max; i++) {
+                target.currentActualQuantity += target.currentData.stocks[i].actualQuantity;
+                target.currentLogicalQuantity += target.currentData.stocks[i].logicalQuantity;
+            }
         };
         ProductController.prototype.setTrendData = function (target) {
             target.trendList = target.resources.trendList;

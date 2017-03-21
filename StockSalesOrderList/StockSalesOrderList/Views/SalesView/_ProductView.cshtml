@@ -274,6 +274,27 @@
                 <td class="col-md-1">{{st.stateName}}</td>
             </tr>
         </tbody>
+        <tfoot>
+            <tr>
+                <td class="col-md-1">&nbsp;</td>
+                <td class="col-md-4">合計</td>
+                <td class="numbers col-md-2" ng-if="$ctrl.salesData.product.isSoldWeight">
+                    {{$ctrl.currentLogicalQuantity | number:3}}
+                </td>
+                <td class="numbers col-md-2" ng-if="!$ctrl.salesData.product.isSoldWeight">
+                    {{$ctrl.currentLogicalQuantity | number:0}}
+                </td>
+                <td class="numbers col-md-2" ng-if="$ctrl.salesData.product.isSoldWeight">
+                    {{$ctrl.currentActualQuantity| number:3}}
+                </td>
+                <td class="numbers col-md-2" ng-if="!$ctrl.salesData.product.isSoldWeight">
+                    {{$ctrl.currentActualQuantity | number:0}}
+                </td>
+
+                <td class="col-md-2">&nbsp;</td>
+                <td class="col-md-1">&nbsp;</td>
+            </tr>
+        </tfoot>
     </table>
 </div>
 <div class="row">

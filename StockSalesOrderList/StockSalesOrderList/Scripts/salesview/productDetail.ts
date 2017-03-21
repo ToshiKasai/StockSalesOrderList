@@ -159,6 +159,9 @@ module salesView {
         trendList: apiModel.IElementTrendData[];
         trendEdit: apiModel.IElementTrendData;
 
+        currentLogicalQuantity: number;
+        currentActualQuantity: number;
+
         modelDateEdit: string;
         modelQtyEdit: number;
         modelCommentEdit: string;
@@ -175,6 +178,9 @@ module salesView {
             this.showOffice = false;
             this.officeMax = 5;
             this.currentData = null;
+
+            this.currentActualQuantity = 0;
+            this.currentLogicalQuantity = 0;
 
             this.trendEdit = null;
             this.trendList = [];
@@ -246,6 +252,15 @@ module salesView {
 
         setCurrentData(target: ProductController): void {
             target.currentData = target.resources.currentData;
+            target.currentActualQuantity = 0;
+            target.currentLogicalQuantity = 0;
+
+            let i: number = 0;
+            let max: number = target.currentData.stocks.length;
+            for (i = 0; i < max; i++) {
+                target.currentActualQuantity += target.currentData.stocks[i].actualQuantity;
+                target.currentLogicalQuantity += target.currentData.stocks[i].logicalQuantity;
+            }
         }
 
         setTrendData(target: ProductController): void {
