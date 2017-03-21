@@ -1,3 +1,4 @@
+/// <reference path="../typings/tsd.d.ts" />
 var salesView;
 (function (salesView) {
     "use strict";
@@ -35,7 +36,7 @@ var salesView;
     app.config(["cfpLoadingBarProvider", function (cfpLoadingBarProvider) {
             cfpLoadingBarProvider.includeSpinner = true;
             cfpLoadingBarProvider.includeBar = false;
-            cfpLoadingBarProvider.latencyThreshold = 200;
+            cfpLoadingBarProvider.latencyThreshold = 0;
             cfpLoadingBarProvider.spinnerTemplate = "<div class='nowloading'><div><h4>通信処理中</h4><small>しばらくお待ちください。</small></div></div>";
             cfpLoadingBarProvider.parentSelector = "#loading-bar-container";
         }]);
@@ -127,8 +128,11 @@ var salesView;
                     else {
                         num = _this.floatFormat(parseFloat(value), fixedNum);
                     }
+                    // return Number(num).toString().replace(/(\d)(?=(?:\d{3}){2,}(?:\.|$))|(\d)(\d{3}(?:\.\d*)?$)/g, '$1$2,$3');
                     return num.toFixed(fixedNum);
+                    // return num.toFixed(fixedNum).replace(/(\d)(?=(?:\d{3}){2,}(?:\.|$))|(\d)(\d{3}(?:\.\d*)?$)/g, '$1$2,$3');
                 });
+                // element.on("dblclick", function (): void {
                 element.on("click", function () {
                     var min = "min";
                     var step = "step";

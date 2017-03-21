@@ -62,6 +62,7 @@ namespace StockSalesOrderList.Controllers.WebApi
             SalesViewApiModel resultModel;
             SalesViewApiParameterModel param = new SalesViewApiParameterModel();
             param.Year = value.SalesList.Select(x => x.detail_date).Min().Year;
+            param.Year += 1;
             code = service.GetSalesView(param, out resultModel, value.Product.Id);
 
             if (code == HttpStatusCode.OK)
@@ -147,7 +148,7 @@ namespace StockSalesOrderList.Controllers.WebApi
                 return StatusCode(HttpStatusCode.BadRequest);
             }
 
-            DateTime startDate = DateTime.Parse(param.Year.ToString() + "/10/1");
+            DateTime startDate = DateTime.Parse((param.Year - 1).ToString() + "/10/1");
             DateTime endDate = startDate.AddYears(1);
 
             var trends = dbContext.SalesTrendModels

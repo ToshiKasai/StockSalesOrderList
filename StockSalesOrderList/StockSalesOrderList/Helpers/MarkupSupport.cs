@@ -137,7 +137,7 @@ namespace StockSalesOrderList.Helpers
             return GetResourceString(controller.HttpContext, expression, "~/", args);
         }
 
-        private static string GetResourceString(HttpContextBase httpContext, string expression, string virtualPath, object[] args)
+        private static string _GetResourceString(HttpContextBase httpContext, string expression, string virtualPath, object[] args)
         {
             try
             {
@@ -147,6 +147,32 @@ namespace StockSalesOrderList.Helpers
                 if (!string.IsNullOrEmpty(fields.ClassKey))
                     return string.Format((string)httpContext.GetGlobalResourceObject(fields.ClassKey, fields.ResourceKey, CultureInfo.CurrentUICulture), args);
                 return string.Format((string)httpContext.GetLocalResourceObject(virtualPath, fields.ResourceKey, CultureInfo.CurrentUICulture), args);
+            }
+            catch (Exception)
+            {
+                return string.Empty;
+            }
+        }
+
+        private static string GetResourceString(HttpContextBase httpContext, string expression, string virtualPath, object[] args)
+        {
+            try
+            {
+                string result = _GetResourceString(httpContext, expression, virtualPath, args);
+                if (string.IsNullOrEmpty(result) == false)
+                    return result;
+
+                string[] param = expression.Split(',');
+                param[0] = param[0].Trim();
+                param[1] = param[1].Trim();
+
+                if(param[0]== "AuthResources")
+                   return App_GlobalResources.AuthResources.ResourceManager.GetString(param[1]);
+                if (param[0] == "ContextResources")
+                    return App_GlobalResources.ContextResources.ResourceManager.GetString(param[1]);
+                if (param[0] == "Messages")
+                    return App_GlobalResources.Messages.ResourceManager.GetString(param[1]);
+                return " ";
             }
             catch (Exception)
             {

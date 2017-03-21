@@ -1,3 +1,4 @@
+/// <reference path="../typings/tsd.d.ts" />
 var salesView;
 (function (salesView) {
     "use strict";
@@ -62,6 +63,7 @@ var salesView;
         };
         MakerController.prototype.scrollTop = function () {
             $("html, body").animate({ scrollTop: 0 }, 500);
+            // angular.element("body").animate({ scrollTop: 0 }, "fast");
         };
         MakerController.$inject = [
             salesViewConfig.ServiceName,

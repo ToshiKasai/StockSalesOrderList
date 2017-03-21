@@ -1,3 +1,4 @@
+/// <reference path="../typings/tsd.d.ts" />
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
@@ -36,6 +37,7 @@ var salesView;
             this.restangular.all("Accounts/Roles").getList().then(function (roles) {
                 _this.roles = roles;
             });
+            // 年度選択肢の範囲
             this.yearList = [];
             var nowDate = new Date();
             var baseYear;
@@ -48,13 +50,18 @@ var salesView;
             for (var i = 2015; i < baseYear + 2; i++) {
                 this.yearList.push(i);
             }
+            // メーカー関連
             this.makerList = [];
             this.userMakers = [];
+            // グループ関連
             this.groupList = [];
+            // 販売情報関連
             this.salesList = [];
             this.productPage = { start: 0, count: 0, pages: 0, page: 0, limit: 100, conditions: null };
             this.salesDetail = null;
+            // 現在の情報関連
             this.currentData = null;
+            // 販売動向情報
             this.trendList = [];
             this.trendDetail = null;
         };
@@ -89,6 +96,8 @@ var salesView;
         Resources.prototype.isNumber = function (numVal) {
             var pattern = /^[-]?([1-9]\d*|0)(\.\d+)?$/;
             return pattern.test(numVal);
+            // return /^[+,-]?\d(\.\d+)?$/.test(numVal);
+            // return /^[+,-]?([1-9]\d*|0)$/.test(numVal);
         };
         Resources.prototype.getMakerList = function (callback, target) {
             var _this = this;
@@ -171,6 +180,7 @@ var salesView;
             });
             return this.productPage;
         };
+        // 販売在庫情報を一覧取得
         Resources.prototype.getSalesList = function (callback, target) {
             var _this = this;
             var result;
@@ -205,6 +215,7 @@ var salesView;
             });
             return this.salesList;
         };
+        // キャッシュ情報より販売在庫情報を取得（サーバーアクセスはしない）
         Resources.prototype.getSalesDataByIdAsCache = function (id) {
             var result = null;
             this.salesList.forEach(function (sales, index, array) {
@@ -214,9 +225,11 @@ var salesView;
             });
             return result;
         };
+        // サーバーへの登録とキャッシュの更新
         Resources.prototype.setSalesData = function (data, callback, target) {
             return this.postSalesData(data, callback, target);
         };
+        // サーバーへの登録とキャッシュの更新
         Resources.prototype.setSalesDataById = function (id, data) {
             var _this = this;
             var send;
@@ -269,6 +282,7 @@ var salesView;
             });
             return data;
         };
+        // 販売在庫情報をサーバーより取得とキャッシュの更新
         Resources.prototype.getSalesListById = function (id, callback, target) {
             var _this = this;
             var result;
@@ -298,6 +312,7 @@ var salesView;
             });
             return this.getSalesDataByIdAsCache(id);
         };
+        // 在庫予定や比率の算出（単一）
         Resources.prototype.recalculationSalesViewData = function (work) {
             var now = new Date();
             var test;
@@ -322,7 +337,9 @@ var salesView;
                     else {
                         work.zaikoPlan[i] = work.zaikoPlan[i - 1];
                     }
+                    // 販売数
                     work.zaikoPlan[i] -= (work.salesList[i - 1].sales_plan + work.salesList[i - 1].sales_trend);
+                    // 入荷数
                     work.zaikoPlan[i] += (work.salesList[i - 1].invoice_plan
                         + work.salesList[i - 2].invoice_zan - work.salesList[i - 2].invoice_adjust);
                 }
@@ -357,6 +374,7 @@ var salesView;
             });
             return this.currentData;
         };
+        // 販売動向情報：一覧取得
         Resources.prototype.getTrendList = function (id, callback, target) {
             var _this = this;
             var result;
@@ -379,6 +397,7 @@ var salesView;
             });
             return this.trendList;
         };
+        // キャッシュ情報より販売動向情報を取得（サーバーアクセスはしない）
         Resources.prototype.getTrendDataByIdAsCache = function (id) {
             var result = null;
             this.trendList.forEach(function (trend, index, array) {
@@ -388,6 +407,7 @@ var salesView;
             });
             return result;
         };
+        // 販売動向情報をサーバーより取得とキャッシュの更新
         Resources.prototype.getTrendDataById = function (id, callback, target) {
             var _this = this;
             var result;
@@ -406,6 +426,7 @@ var salesView;
             });
             return this.getTrendDataByIdAsCache(id);
         };
+        // サーバーへの登録とキャッシュの更新(PUT/POST兼用)
         Resources.prototype.setTrendDataById = function (id, data, callback, target) {
             var send;
             send = $.extend(true, {}, data);

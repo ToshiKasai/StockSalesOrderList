@@ -31,6 +31,8 @@
     </ol>
 </div>
 
+<div id="uploadOverlay" class="overlay"></div>
+<div id="uploadingMessage" class="invisible"><div><h4>アップロード＆データ更新中</h4><small>件数によりかなりの時間がかかります。</small></div></div>
 
 <div ng-app="myApp" ng-controller="UploadController as $ctrl">
     <div class="panel panel-info">
@@ -41,11 +43,11 @@
         </div>
     </div>
 
-    <div ng-if="$ctrl.errorMessage!==null" class="alert alert-warning ng-cloak" ng-cloak>
+    <div ng-if="$ctrl.errorFlg" class="alert alert-warning ng-cloak" ng-cloak>
         {{$ctrl.errorMessage}}
         <div>エラー発生時はアップロードしたデータはすべて反映しておりません。</div>
     </div>
-    <div ng-if="$ctrl.successMessage!==null" class="alert alert-success ng-cloak" ng-cloak>
+    <div ng-if="$ctrl.successFlg" class="alert alert-success ng-cloak" ng-cloak>
         {{$ctrl.successMessage}}
     </div>
 

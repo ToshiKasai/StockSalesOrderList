@@ -34,18 +34,18 @@ module baseService {
             this.productId = null;
             let nowDate: Date = new Date();
             if (nowDate.getMonth() < 10) {
-                this.year = nowDate.getFullYear() - 1;
-            } else {
                 this.year = nowDate.getFullYear();
+            } else {
+                this.year = nowDate.getFullYear() + 1;
             }
         }
 
         resetYear(): void {
             let nowDate: Date = new Date();
             if (nowDate.getMonth() < 10) {
-                this.year = nowDate.getFullYear() - 1;
-            } else {
                 this.year = nowDate.getFullYear();
+            } else {
+                this.year = nowDate.getFullYear() + 1;
             }
         }
     }

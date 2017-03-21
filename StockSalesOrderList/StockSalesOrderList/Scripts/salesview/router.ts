@@ -44,7 +44,7 @@ module salesView {
     app.config(["cfpLoadingBarProvider", function (cfpLoadingBarProvider: ILoadingCustomBar): void {
         cfpLoadingBarProvider.includeSpinner = true;
         cfpLoadingBarProvider.includeBar = false;
-        cfpLoadingBarProvider.latencyThreshold = 200;
+        cfpLoadingBarProvider.latencyThreshold = 0;
         cfpLoadingBarProvider.spinnerTemplate = "<div class='nowloading'><div><h4>通信処理中</h4><small>しばらくお待ちください。</small></div></div>";
         cfpLoadingBarProvider.parentSelector = "#loading-bar-container";
     }]);

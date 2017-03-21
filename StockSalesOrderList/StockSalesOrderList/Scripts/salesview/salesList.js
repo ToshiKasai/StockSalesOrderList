@@ -1,3 +1,4 @@
+/// <reference path="../typings/tsd.d.ts" />
 var salesView;
 (function (salesView) {
     "use strict";
@@ -97,6 +98,7 @@ var salesView;
         };
         SalesController.prototype.scrollTop = function () {
             $("html, body").animate({ scrollTop: 0 }, 500);
+            // angular.element("body").animate({ scrollTop: 0 }, "fast");
         };
         SalesController.prototype.toggleInvoice = function (sl) {
             sl.invoiceShow = sl.invoiceShow ? false : true;
@@ -134,6 +136,7 @@ var salesView;
         SalesController.prototype.scrollTo = function (id) {
             var dat = "#article-" + id;
             var position = angular.element(dat).position().top;
+            // angular.element("body").animate({ scrollTop: position }, 400);
             $("html, body").animate({ scrollTop: position }, 400);
         };
         SalesController.$inject = [

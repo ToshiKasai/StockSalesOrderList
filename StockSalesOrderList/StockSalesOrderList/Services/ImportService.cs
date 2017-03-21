@@ -115,9 +115,9 @@ namespace StockSalesOrderList.Services
                             return false;
                         }
 
-                        WriteAppLog(this.ToString(), "商品コード[" + productCode + "] 年度[" + targetYear.ToString() + "] の処理");
+                        WriteAppLog(this.ToString(), "商品コード[" + productCode + "] 年[" + targetYear.ToString() + "] の処理");
                         // 月ループ(10月～9月+10月～3月)
-                        targetDate = DateTime.Parse(targetYear.ToString() + "-10-1");
+                        targetDate = DateTime.Parse((targetYear).ToString() + "-10-1");
                         for (int colCount = 0; colCount < ONE_ROW.COLS_REPEAT_MONTH; colCount++)
                         {
                             TradeModel trade = dbContext.TradeModels.Where(tm => tm.ProductModelId == product.Id).Where(tm => tm.TargetDate == targetDate).SingleOrDefault();

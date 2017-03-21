@@ -17,8 +17,8 @@ module salesView {
                 [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                 [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                 [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             ];
             this.chartSet();
         }
@@ -42,12 +42,14 @@ module salesView {
                 this.data[2][i] = baseData[i + 1].sales_plan + baseData[i + 1].sales_trend;
                 this.data[3][i] = baseData[i + 1].sales_actual;
                 this.data[4][i] = baseData[i + 1].pre_sales_actual;
+                this.data[5][i] = baseData[i + 1].invoice_plan;
+                this.data[6][i] = baseData[i + 1].invoice_actual;
             }
         }
 
         chartSet(): void {
             this.labels = ["10月", "11月", "12月", "1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月"];
-            this.series = ["在庫予測", "在庫数", "販売予定", "販売実績", "前年実績"]; // , "予実比", "前年比"];
+            this.series = ["在庫予測", "在庫数", "販売予定", "販売実績", "前年実績", "入荷予定", "入荷実績"]; // , "予実比", "前年比"];
             this.datasetOverride = [
                 {
                     yAxisID: "y-axis-1", fill: true, lineTension: 0,
@@ -74,16 +76,16 @@ module salesView {
                     backgroundColor: "rgba(158,158,158, 0.1)",
                     borderColor: "rgba(158,158,158, 1)",
                 },
-                /*{
-                    yAxisID: "y-axis-2", fill: false, lineTension: 0,
+                {
+                    yAxisID: "y-axis-1", fill: false, lineTension: 0,
                     backgroundColor: "rgba(121, 85, 72, 0.1)",
                     borderColor: "rgba(121, 85, 72, 1)",
                 },
                 {
-                    yAxisID: "y-axis-2", fill: false, lineTension: 0,
+                    yAxisID: "y-axis-1", fill: false, lineTension: 0,
                     backgroundColor: "rgba(103, 58, 183, 0.1)",
                     borderColor: "rgba(103, 58, 183, 1)",
-                }*/
+                }
             ];
             this.options = {
                 title: {

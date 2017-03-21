@@ -1,3 +1,4 @@
+/// <reference path="../typings/tsd.d.ts" />
 var managedConfig;
 (function (managedConfig) {
     "use strict";
@@ -12,7 +13,7 @@ var managedConfig;
         "ui.select",
         "ngSanitize",
         "angular-loading-bar",
-        managedConfig.ServiceAppName
+        managedConfig.ServiceAppName // 管理機能用サービス
     ];
     managedConfig.MenuController = "MenuController";
     managedConfig.UserListController = "UserListController";

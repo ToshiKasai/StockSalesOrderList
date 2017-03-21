@@ -1,3 +1,4 @@
+/// <reference path="../typings/tsd.d.ts" />
 var managed;
 (function (managed) {
     "use strict";
@@ -95,7 +96,7 @@ var managed;
     app.config(["cfpLoadingBarProvider", function (cfpLoadingBarProvider) {
             cfpLoadingBarProvider.includeSpinner = true;
             cfpLoadingBarProvider.includeBar = true;
-            cfpLoadingBarProvider.latencyThreshold = 500;
+            cfpLoadingBarProvider.latencyThreshold = 0;
             cfpLoadingBarProvider.spinnerTemplate = "<div class='nowloading'><div><h4>通信処理中</h4><small>しばらくお待ちください。</small></div></div>";
             cfpLoadingBarProvider.parentSelector = "#loading-bar-container";
         }]);

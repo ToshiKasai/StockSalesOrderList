@@ -1,3 +1,4 @@
+/// <reference path="../typings/tsd.d.ts" />
 var baseService;
 (function (baseService) {
     "use strict";
@@ -15,19 +16,19 @@ var baseService;
             this.productId = null;
             var nowDate = new Date();
             if (nowDate.getMonth() < 10) {
-                this.year = nowDate.getFullYear() - 1;
+                this.year = nowDate.getFullYear();
             }
             else {
-                this.year = nowDate.getFullYear();
+                this.year = nowDate.getFullYear() + 1;
             }
         }
         Session.prototype.resetYear = function () {
             var nowDate = new Date();
             if (nowDate.getMonth() < 10) {
-                this.year = nowDate.getFullYear() - 1;
+                this.year = nowDate.getFullYear();
             }
             else {
-                this.year = nowDate.getFullYear();
+                this.year = nowDate.getFullYear() + 1;
             }
         };
         return Session;

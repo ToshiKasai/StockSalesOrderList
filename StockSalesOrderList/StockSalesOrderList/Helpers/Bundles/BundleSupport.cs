@@ -211,6 +211,7 @@ namespace StockSalesOrderList
                     "~/Content/ripples.css",                    // bootstrap-ripples
 
                     "~/Content/themes/base/all.css", // jQueryUI
+                    "~/Content/themes/base/jquery-ui.css", // jQueryUI
                     // "~/Content/themes/base/datepicker.css", // 日付選択
 
                     // "~/Content/datepicker.css",         // 日付選択
