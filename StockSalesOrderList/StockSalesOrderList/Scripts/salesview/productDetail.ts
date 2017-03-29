@@ -202,7 +202,8 @@ module salesView {
 
             let hol: holiday.Holiday = new holiday.Holiday();
 
-            var holidays: Array<holiday.ItemHoliday> = hol.getHoliday(2017);
+            var holidays: Array<holiday.ItemHoliday> = [];
+            // var holidays: Array<holiday.ItemHoliday> = hol.getHoliday(2017);
             // console.info(holidays);
 
             $.datepicker.setDefaults($.datepicker.regional["ja"]);
@@ -278,6 +279,7 @@ module salesView {
         }
 
         goSales(): void {
+            this.resources.getSalesListById(this.session.productId);
             this.scrollTop();
             this.state.go(salesViewConfig.StateSales);
         }
@@ -356,6 +358,37 @@ module salesView {
         doneRegistTrend(target: ProductController): void {
             target.resources.getSalesListById(target.session.productId, target.setDetailData, target);
             target.resources.toastr.success("動向情報の更新をしました。");
+        }
+
+        inputOrder(index: number, sl: apiModel.ISalesViewData): void {
+            var inv: number = index;
+            if (sl.product.leadTime !== null) {
+                inv += sl.product.leadTime;
+            }
+            if (inv < sl.salesList.length) {
+                sl.salesList[inv].invoice_plan = sl.salesList[index].order_plan;
+            }
+            this.resources.recalculationSalesViewDataOffline(sl);
+            this.charts.chartDataSets(sl);
+        }
+        inputInvoice(index: number, sl: apiModel.ISalesViewData): void {
+            this.resources.recalculationSalesViewDataOffline(sl);
+            this.charts.chartDataSets(sl);
+        }
+        inputInvoiceReming(index: number, sl: apiModel.ISalesViewData): void {
+            this.resources.recalculationSalesViewDataOffline(sl);
+            this.charts.chartDataSets(sl);
+        }
+        inputSalesPlan(index: number, sl: apiModel.ISalesViewData): void {
+            this.resources.recalculationSalesViewDataOffline(sl);
+            this.charts.chartDataSets(sl);
+        }
+
+        saveData(): void {
+            this.resources.setSalesData(this.salesData, this.savedPlan, this);
+        }
+        savedPlan(target: ProductController): void {
+            target.resources.toastr.success("情報を更新しました。");
         }
     }
     angular.module(salesViewConfig.AppName).controller(salesViewConfig.ProductController, ProductController);

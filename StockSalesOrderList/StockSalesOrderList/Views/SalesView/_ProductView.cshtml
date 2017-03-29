@@ -60,6 +60,7 @@
     </canvas>
 </div>
 
+
 <div class="panel panel-primary">
     <div class="panel-heading">
         <article id="article-{{$ctrl.salesData.product.id}}">{{$ctrl.salesData.product.code}} : {{$ctrl.salesData.product.name}}</article>
@@ -69,6 +70,10 @@
         パレット：{{$ctrl.salesData.product.paletteQuantity | nullfilter : "未登録"}}
         リードタイム：{{$ctrl.salesData.product.leadTime | nullfilter : "未登録"}}
         ）
+    </div>
+    <div class="panel-body">
+        <button class="btn btn-default btn-raised" ng-click="$ctrl.goSales();">一覧に戻る</button>
+        <button class="btn btn-default btn-raised" ng-click="$ctrl.saveData()">保存＆再計算</button>
     </div>
     @{
         var loop_start = 1;
@@ -109,7 +114,9 @@
                 <th class="title-mid">予定</th>
                 @for (var i = loop_start; i < loop_end; i++)
                 {
-                    <td class="numbers">{{$ctrl.salesData.salesList[@i].order_plan | number: $ctrl.getFixed()}}</td>
+                    <td class="numbers form-group" edit-tag-number ng-model="$ctrl.salesData.salesList[@i].order_plan"
+                        callback="$ctrl.inputOrder(@i, $ctrl.salesData);"></td>
+                    @*<td class="numbers">{{$ctrl.salesData.salesList[@i].order_plan | number: $ctrl.getFixed()}}</td>*@
                 }
             </tr>
             <tr>
@@ -126,7 +133,9 @@
                 <th class="title-mid">予定</th>
                 @for (var i = loop_start; i < loop_end; i++)
                 {
-                    <td class="numbers">{{$ctrl.salesData.salesList[@i].invoice_plan | number: $ctrl.getFixed()}}</td>
+                    <td class="numbers form-group" edit-tag-number ng-if="$ctrl.salesData.product.isSoldWeight" ng-model="$ctrl.salesData.salesList[@i].invoice_plan" min="0" step="0.001" fixed="3" callback="$ctrl.inputInvoice(@i, $ctrl.salesData);"></td>
+                    <td class="numbers form-group" edit-tag-number ng-if="!$ctrl.salesData.product.isSoldWeight" ng-model="$ctrl.salesData.salesList[@i].invoice_plan" min="0" step="1" fixed="0" callback="$ctrl.inputInvoice(@i, $ctrl.salesData);"></td>
+                    @*<td class="numbers">{{$ctrl.salesData.salesList[@i].invoice_plan | number: $ctrl.getFixed()}}</td>*@
                 }
             </tr>
             <tr>
@@ -162,7 +171,9 @@
                 <th class="title-mid info">調整</th>
                 @for (var i = loop_start; i < loop_end; i++)
                 {
-                    <td class="numbers info">{{$ctrl.salesData.salesList[@i].invoice_adjust | number: $ctrl.getFixed()}}</td>
+                    <td class="numbers info form-group" edit-tag-number ng-if="$ctrl.salesData.product.isSoldWeight" ng-model="$ctrl.salesData.salesList[@i].invoice_adjust" min="0" step="0.001" fixed="3" callback="$ctrl.inputInvoiceReming(@i, $ctrl.salesData);"></td>
+                    <td class="numbers info form-group" edit-tag-number ng-if="!$ctrl.salesData.product.isSoldWeight" ng-model="$ctrl.salesData.salesList[@i].invoice_adjust" min="0" step="1" fixed="0" callback="$ctrl.inputInvoiceReming(@i, $ctrl.salesData);"></td>
+                    @*<td class="numbers info">{{$ctrl.salesData.salesList[@i].invoice_adjust | number: $ctrl.getFixed()}}</td>*@
                 }
             </tr>
 
@@ -180,7 +191,9 @@
                 <th class="title-mid">予定</th>
                 @for (var i = loop_start; i < loop_end; i++)
                 {
-                    <td class="numbers">{{$ctrl.salesData.salesList[@i].sales_plan | number: $ctrl.getFixed()}}</td>
+                    <td class="numbers form-group" edit-tag-number ng-if="$ctrl.salesData.product.isSoldWeight" ng-model="$ctrl.salesData.salesList[@i].sales_plan" min="0" step="0.001" fixed="3" callback="$ctrl.inputSalesPlan(@i, $ctrl.salesData);"></td>
+                    <td class="numbers form-group" edit-tag-number ng-if="!$ctrl.salesData.product.isSoldWeight" ng-model="$ctrl.salesData.salesList[@i].sales_plan" min="0" step="1" fixed="0" callback="$ctrl.inputSalesPlan(@i, $ctrl.salesData);"></td>
+                    @*<td class="numbers">{{$ctrl.salesData.salesList[@i].sales_plan | number: $ctrl.getFixed()}}</td>*@
                 }
             </tr>
             <tr>
@@ -402,7 +415,7 @@
     <div class="panel-heading">
         販売動向情報
         &nbsp;&nbsp;
-        <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#inputModal" ng-click="$ctrl.newTrendEdit()">
+        <button type="button" class="btn btn-primary btn-lg btn-raised" data-toggle="modal" data-target="#inputModal" ng-click="$ctrl.newTrendEdit()">
             新規登録
         </button>
     </div>
